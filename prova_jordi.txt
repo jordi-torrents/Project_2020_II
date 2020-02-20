@@ -1,7 +1,3 @@
 prova de pull request
 jsf
-<<<<<<< HEAD
-iuh
-=======
 edició des de github
->>>>>>> c789bf359e4cd35fb447670851d625869c90748c
