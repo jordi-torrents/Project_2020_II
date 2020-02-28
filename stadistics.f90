@@ -44,17 +44,18 @@ end subroutine statistic
 
 function mean(x)
 
-real,dimension(:), intent(in):: x
-real:: mean
+real(8),dimension(:), intent(in):: x
+real(8):: mean
 
 mean=sum(x)/size(x)
 
 end function mean
 
 function std(x)
-real,dimension(:),intent(in)::x
-real :: media, suma
-real::std
+real(8),dimension(:),intent(in)::x
+real(8):: media, suma
+real(8)::std
+
 
 suma=0.0
 media=mean(x)
