@@ -4,8 +4,8 @@ module def_variables
   real(8)                 ::      start, finish
   integer                 ::      fStat
 
-  integer, parameter      ::      un_input=101
-  integer, parameter      ::      Npart, step, Nsteps, Nprint, Ngdr
+  integer, parameter      ::      un_input=101, un_gdr=102, un_mag=103 
+  integer, parameter      ::      Npart, step_print, step, Nsteps, Nprint, Ngdr
   integer, parameter      ::      seed
   real(8),parameter       ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
   real(8),parameter       ::      cutoff
