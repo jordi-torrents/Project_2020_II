@@ -7,7 +7,7 @@ contains
         
         IMPLICIT NONE
         real(8)          ::      r, r2, dx, dy, dz
-        real(8)          ::      ff, suma
+        real(8)          ::      ff, suma, potential
         integer         ::      i, j
 
                 forces = 0.d0
