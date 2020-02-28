@@ -1,4 +1,4 @@
-module boundary_conditions
+module pbc
 
 
 contains
@@ -14,11 +14,11 @@ do i=1,size(vec)
 			vec(i,j)=vec(i,j)-L_box
 		end if
 		if (vec(i,j)<-L_box*0.5d0) then
-			vec(i,j)=vec(i,j)+L_box	
+			vec(i,j)=vec(i,j)+L_box
 		end if
 	end do
 end do
 
-end subroutine pbc 
+end subroutine pbc
 
 end module boundary_conditions

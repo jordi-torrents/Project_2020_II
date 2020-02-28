@@ -1,4 +1,4 @@
-module verlet
+module integration
 
 use init
 use FF90
