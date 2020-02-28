@@ -1,36 +1,69 @@
-program estadistica
+module estadistica
 
 !use programa alberto
 use verlet
 
+
 contains
 
-subroutine statistic(pos,vel)
+subroutine statistic()
 
-real,dimension(:,:),intent(in) :: pos,vel
-real,dimension(Ntimesteps):: T, kins, pots
-real,allocatable,intent(out):: kinstot,postot
-
+real(8),dimension(Ntimesteps):: T, kins, pots
+real(8) :: Tav,Tstd,kinav,kinstd,potav,potstd
+real(8),dimension(Nsteps/Nprint),intent(out):: kinstot,postot, Ttot, Etot
+integer :: iprint
 open(unit=11, file="thermo.dat", status="replace", action="write")
 
+iprint=0
+
+
 do i=1,Ntimesteps
-	call verlet(pos,vel)
-	
-	T(i)=kin**2.0/(3.0*N)
+	call verlet(pos)
+
+	T(i)=kin**2.0d0/(3.0d0*N)
 	kins(i)=kin
 	pots(i)=pot
 
-	if (mod(i,Ntraj)==0.0) then
-		
+	if (mod(i,Nprint)==0.0) then
 
+
+		Tav=mean(T); Tstd=std(T)
+		kinav=mean(kins); kinstd=std(kins)
+		potav=mean(pots); potstd=std(pots)
+		Ttot(iprint)=Tav
+		kinstot(iprint)=kinav
+		potstot(iprint)=potav
+		Etot(iprint)=kinav+potav
 	end if
 	
-	if (mod(i,Nthermo)==0.0) then
+	write(unit=11, fmt="(2f12.7)"), Tav,Tstd, kinav, kinstd, potav, potstd, Etot
 
-	end if
-
+end do
 end subroutine statistic
 
 
+function mean(x)
 
-end program estadistica
+real,dimension(:), intent(in):: x
+real:: mean
+
+mean=sum(x)/size(x)
+
+end function mean
+
+function std(x)
+real,dimension(:),intent(in)::x
+real :: media, suma
+real::std
+
+suma=0.0
+media=mean(x)
+do i=1,size(x)
+	suma=suma+(x(i)-media)**2
+end do
+
+std=sqrt(suma/(size(x)-1.0d0))
+
+end function std
+
+end module estadistica
