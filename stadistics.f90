@@ -1,44 +1,34 @@
-module estadistica
-
-!use programa alberto
-use verlet
-
+module stadistics
 
 contains
 
-subroutine statistic()
+subroutine results()
 
-real(8),dimension(Ntimesteps):: T, kins, pots
-real(8) :: Tav,Tstd,kinav,kinstd,potav,potstd
-real(8),dimension(Nsteps/Nprint),intent(out):: kinstot,postot, Ttot, Etot
-integer :: iprint
-open(unit=11, file="thermo.dat", status="replace", action="write")
+        medida=medida+1
+        kinetic=0.5*d.*dot_product(vel,vel)
+        temp_inst(medida)=kin**2.0d0/(3.0d0*Npart)
+        kin(medida)=kinetic
+        pot(medida)=potential
+        E_tot(medida)=kinetic+potential
+        write(unit=un_mag, fmt=*),temp_inst(medida),kinetic,potential,E_tot
+end subroutine results
 
-iprint=0
+subroutine statistics()
+real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstv
+real(8),dimension(:),intent(out)::kinstot,potstot,Etot
+integer:: iav
 
+        iav=iav+1
+	Tav=mean(temp_inst); Tstd=std(temp_inst)
+	kinav=mean(kin); kinstd=std(kin)
+	potav=mean(pot); potstd=std(pot)
+        etotav=mean(E_tot); etotstd=std(E_tot)
+	Ttot(iav)=Tav
+	kinstot(iav)=kinav
+	potstot(iav)=potav
+	Etot(iav)=etotav
+	write(unit=un_stats, fmt=*), Tav,Tstd, kinav, kinstd, potav, potstd, etotav,etotstv
 
-do i=1,Ntimesteps
-	call verlet(pos)
-
-	T(i)=kin**2.0d0/(3.0d0*N)
-	kins(i)=kin
-	pots(i)=pot
-
-	if (mod(i,Nprint)==0.0) then
-
-
-		Tav=mean(T); Tstd=std(T)
-		kinav=mean(kins); kinstd=std(kins)
-		potav=mean(pots); potstd=std(pots)
-		Ttot(iprint)=Tav
-		kinstot(iprint)=kinav
-		potstot(iprint)=potav
-		Etot(iprint)=kinav+potav
-	end if
-	
-	write(unit=11, fmt="(2f12.7)"), Tav,Tstd, kinav, kinstd, potav, potstd, Etot
-
-end do
 end subroutine statistic
 
 
@@ -47,7 +37,7 @@ function mean(x)
 real(8),dimension(:), intent(in):: x
 real(8):: mean
 
-mean=sum(x)/size(x)
+        mean=sum(x)/size(x)
 
 end function mean
 
@@ -57,14 +47,14 @@ real(8):: media, suma
 real(8)::std
 
 
-suma=0.0
-media=mean(x)
-do i=1,size(x)
-	suma=suma+(x(i)-media)**2
-end do
+        suma=0.0
+        media=mean(x)
+        do i=1,size(x)
+	        suma=suma+(x(i)-media)**2
+        end do
 
-std=sqrt(suma/(size(x)-1.0d0))
+        std=sqrt(suma/(size(x)-1.0d0))
 
 end function std
 
-end module estadistica
+end module stadistics
