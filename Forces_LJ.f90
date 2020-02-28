@@ -1,21 +1,21 @@
-module FF90
+module Forces_LJ
 IMPLICIT NONE
-contains 
+use def_variables
 
-        subroutine ForcesLJ(pos,N,L,cutoff,forces,potential,T,density)
+contains 
+        subroutine ForcesLJ()
         
         IMPLICIT NONE
-        real*8          ::      r, r2, potential, cutoff, dx, dy, dz, L
-        real*8          ::      ff, pressure, T, density, suma
-        integer         ::      i, j, N
-        real*8, dimension(N,3)          ::      pos, forces
+        real(8)          ::      r, r2, dx, dy, dz
+        real(8)          ::      ff, suma
+        integer         ::      i, j
 
-                forces(:,:) = 0
-                potential = 0.0
+                forces = 0.d0
+                potential = 0.d0
 
-                do i=1, N, 1
-                        do j=i+1, N, 1
-                               r2=0
+                do i=1, N
+                        do j=i+1, N
+                               r2=0.d0
 
                                dx = pos(i,1)-pos(j,1)
                                dx = pbc(dx,L)
@@ -27,7 +27,7 @@ contains
                                r2 = r2 +dx**2
                                r2 = r2 +dy**2
                                r2 = r2 +dz**2
-                               r = r2**0.5
+                               r = r2**0.5d0
 
                                if (r < cutoff) then
                                        ff = (48/r**14-24/r**8)
@@ -36,9 +36,9 @@ contains
                                        forces(i,2)=forces(i,2) + ff*dy
                                        forces(i,3)=forces(i,3) + ff*dz
 
-                                       forces(i,1)=forces(i,1) + ff*dx
-                                       forces(i,2)=forces(i,2) + ff*dy
-                                       forces(i,3)=forces(i,3) + ff*dz
+                                       forces(j,1)=forces(j,1) + ff*dx
+                                       forces(j,2)=forces(j,2) + ff*dy
+                                       forces(j,3)=forces(j,3) + ff*dz
 
                                        suma = suma + (ff*dx**2 + ff*dy**2 + ff*dz**2)
 
@@ -51,5 +51,5 @@ contains
 
         end subroutine                                              
                               
-end module FF90
+end module Forces_LJ
 
