@@ -5,8 +5,9 @@ module init
 
   subroutine initialize()
     integer :: side, i, j, k, count
-    real(8) :: dx
+    real(8) :: dx, pi2, U1, U2, U3, U4
 
+    pi2 = 2.d0*acos(-1.d0)
     count=0
     side = int(dble(Npart)**(1.d0/3.d0))+1
     dx=L/dble(side)
@@ -16,37 +17,18 @@ module init
           if (count < Npart) then
             count = count+1
             pos(count, :) = dble((/i, j, k/)) * dx
+            U1 = r1279()
+            U2 = r1279()
+            U3 = r1279()
+            U4 = r1279()
+            vel(count,1)=dsqrt(-2.d0*temp*dlog(U1))*dcos(pi2*U2)
+            vel(count,2)=dsqrt(-2.d0*temp*dlog(U1))*dsin(pi2*U2)
+            vel(count,3)=dsqrt(-2.d0*temp*dlog(U3))*dcos(pi2*U4)
           end if
         end do
       end do
     end do
 
-    vel=1.d0 ! pendent de fer
-
   end subroutine
-
-subroutine initialize_vel_normal(vel,N, T, seed)
-
-implicit none
-real*8,dimension(N,3)   ::     vel
-integer         ::      N , indx, seed, iter_needed, d
-real*8          ::      pi, T, sigma, rand1, rand2
-
-pi = acos(-1.)
-sigma = T**0.5
-iter_needed = N/2
-do d= 1, 3, 1
-       indx = 0 
-        do i=1, iter_needed, 1
-                rand1 = rand()
-                rand2 = rand()
-                indx = indx + 1
-                vel(indx,d) = sigma*sqrt(-2*log(rand1))*cos(2*pi*rand2)
-                indx = indx +1
-                vel(indx,d) = sigma*sqrt(-2*log(rand1))*sin(2*pi*rand2)
-         enddo
-enddo
-
-end subroutine initialize_vel_normal
 
 end module
