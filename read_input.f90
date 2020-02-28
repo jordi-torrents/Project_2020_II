@@ -35,6 +35,7 @@ module read_input
     read(un_input,*) epsLJ
     read(un_input,*) mass
     read(un_input,*) seed
+    read(un_input,*) Ngdr
     L = (dble(Npart)/dens)**(1.d0/3.d0)
     close(un_input)
   end subroutine read_parameters
