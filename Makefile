@@ -7,8 +7,8 @@ FLAGS=-Wall  -fbounds-check
 
 
 ## SimulacioEIA.x  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.x :  Forces_LJ.o boundary.o def_variables.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o secs.o main.o 
-	$(COMP) $(OPT) $(FLAGS)  Forces_LJ.o boundary.o def_variables.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o secs.o main.o SimulacioEIA.x
+SimulacioEIA.x :  Forces_LJ.o pbc.o def_variables.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o secs.o main.o 
+	$(COMP) $(OPT) $(FLAGS)  Forces_LJ.o pbc.o def_variables.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o secs.o main.o SimulacioEIA.x
 
 
 def_variables.o : def_variables.f90
@@ -17,7 +17,7 @@ def_variables.o : def_variables.f90
 Forces_LJ.o : Forces_LJ.f90
 	$(COMP) $(OPT) $(FLAGS) -c $< -o $@
 
-boundary.o : boundary.f90
+pbc.o : pbc.f90
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
 init.o : init.f90
@@ -44,7 +44,7 @@ secs.o : secs.c
 main.o : main.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-SimulacioEIA_directe: def_variables.f90 Forces_LJ.f90 boundary.f90 init.f90o integration.f90  read_input.f90 stadistics.f90 r1279.f90 ran2.f90 secs.f90 secs.o main.of90 SimulacioEIA_directe.x
+SimulacioEIA_directe: def_variables.f90 Forces_LJ.f90 pbc.f90 init.f90o integration.f90  read_input.f90 stadistics.f90 r1279.f90 ran2.f90 secs.f90 secs.o main.of90 SimulacioEIA_directe.x
 
 ## run : Run the program vectors.x
 .PHONY: run_directe
@@ -52,7 +52,7 @@ run:
 	./SimulacioEIA_directe.x
 
 ## run : Run the program vectors.x
-.PHONY: run_directe
+.PHONY: run
 run:
 	./SimulacioEIA.x
 
