@@ -5,7 +5,7 @@ integer                 ::      fStat
 integer                 ::      un_input=101
 integer                 ::      Npart, step, Nsteps, Nprint
 integer                 ::      seed
-real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass
+real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
 real(8), allocatable,dimension(:,:)     ::      pos, vel
 real(8), allocatable,dimension(:)       ::      E_tot, kin, pot, press , temp_inst
 
