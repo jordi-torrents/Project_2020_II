@@ -13,6 +13,13 @@ call initialize()
 !       !! call integrador()
 !       if (mod(step,Nprint) == 0) then
 !enddo
+
+open(123,file='initial_pos.xyz')
+do i=1,Npart
+  write(123,*) pos(i,:)
+end do
+close(123)
+
 call cpu_time(finish)
 print*,'CPU time:',finish-start,'s'
 end program dynamics
