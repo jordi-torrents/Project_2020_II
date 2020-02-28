@@ -5,6 +5,7 @@
 0.0003	TimeStep
 1	N Print
 2.628	sigmaLJ Angstroms
-5.465	epsLJ/kB Kelvins 
+5.465	epsLJ/kB Kelvins
 2.0	Mass
 2	seed
+50 Number of gdr beads
