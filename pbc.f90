@@ -3,9 +3,20 @@ use def_variables
 
 contains
 
-subroutine pbc_scalar(x)
- real(8) :: x
- x = x -int(x/L)*L
+function pbc_dist(x)
+ real(8) :: pbc_scalar, x
+ pbc_scalar = x - int(2.d0*x/L)*L
+end function
+
+subroutine pbc_pos()
+  integer :: i, j
+
+  do i=1,Npart
+    do j=1,3
+      pos(i,j) = pos(i,j) - int(pos(i,j)/L)*L
+    end do
+  end do
+
 end subroutine
 
 ! subroutine pbc(vec,L_box)
