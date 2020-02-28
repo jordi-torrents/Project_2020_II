@@ -9,12 +9,16 @@ use stadistics
 use gdr
 
 call cpu_time(start)
+call open_input()
+call read_parameters()
 call setr1279(seed)
+
 open(unit=un_mag,file='results.log')
 write(unit=un_stats, fmt=*), 'Temp      Kin     Potencial       E_tot        Pressure'
 open(unit=un_stats,file='stats.log')
 call open_input()
 call read_parameters()
+
 call allocate_arrays(Nsteps, Nprint, Npart)
 call initialize()
 
