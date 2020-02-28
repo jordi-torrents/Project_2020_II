@@ -27,6 +27,12 @@ contains
 
     gdr = gdr/sum(gdr)
     gdr = gdr/volume
+
+    open(un_gdr, file='gdr.dat')
+    do i=1,Ngdr
+      write(un_gdr, *) (dble(i)-0.5d0)*dr , gdr(i)
+    end do
+    close(un_gdr)
   end subroutine
 
 end module
