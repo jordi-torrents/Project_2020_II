@@ -25,4 +25,28 @@ module init
 
   end subroutine
 
+subroutine initialize_vel_normal(vel,N, T, seed)
+
+implicit none
+real*8,dimension(N,3)   ::     vel
+integer         ::      N , indx, seed, iter_needed, d
+real*8          ::      pi, T, sigma, rand1, rand2
+
+pi = acos(-1.)
+sigma = T**0.5
+iter_needed = N/2
+do d= 1, 3, 1
+       indx = 0 
+        do i=1, iter_needed, 1
+                rand1 = rand()
+                rand2 = rand()
+                indx = indx + 1
+                vel(indx,d) = sigma*sqrt(-2*log(rand1))*cos(2*pi*rand2)
+                indx = indx +1
+                vel(indx,d) = sigma*sqrt(-2*log(rand1))*sin(2*pi*rand2)
+         enddo
+enddo
+
+end subroutine initialize_vel_normal
+
 end module
