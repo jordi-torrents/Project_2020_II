@@ -1,33 +1,33 @@
 !*******************************************************************************
 !	SUBROUTINE ir1279vector(random_vector, no_of_rand)
-!	
+!
 !	USE	 r1279block
 !	IMPLICIT NONE
 !	INTEGER	 no_of_rand, i, random_vector(*)
-!	REAL	 ran2	
-!	
-!	do i = 1, no_of_rand 
+!	REAL	 ran2
+!
+!	do i = 1, no_of_rand
 !	    ioffset = iand(ioffset + 1, 2047)
 !	    irand(ioffset) = (irand(index1(ioffset))*irand(index2(ioffset)))
 !	    random_vector(i) = lshift(irand(ioffset), -1)
 !	end do
-!	
+!
 !	END
-!	
+!
 !*******************************************************************************
 FUNCTION r1279()
 
     IMPLICIT NONE
     INCLUDE "r1279block.h"
     REAL    r1279, inv_max
-    REAL    INV_MAXINT 
+    REAL    INV_MAXINT
     PARAMETER (INV_MAXINT = 1.0/2147483647.)
 
     ioffset = iand(ioffset + 1, 2047)
     irand(ioffset) = (irand(index1(ioffset))*irand(index2(ioffset)))
     r1279 = ishft(irand(ioffset), -1) * INV_MAXINT
 
-END 
+END
 
 !*******************************************************************************
 FUNCTION ir1279()
@@ -40,7 +40,7 @@ FUNCTION ir1279()
     irand(ioffset) = (irand(index1(ioffset))*irand(index2(ioffset)))
     ir1279 = ishft(irand(ioffset), -1)
 
-END 
+END
 
 !*******************************************************************************
 FUNCTION ir1279range(imin, imax)
@@ -48,7 +48,7 @@ FUNCTION ir1279range(imin, imax)
     IMPLICIT NONE
     INCLUDE "r1279block.h"
     INTEGER ir1279range, imin, imax
-    REAL INV_MAXINT 
+    REAL INV_MAXINT
     PARAMETER (INV_MAXINT = 1.0/2147483647.)
     REAL    range
 
@@ -58,7 +58,7 @@ FUNCTION ir1279range(imin, imax)
     ir1279range = imin + int(ishft(irand(ioffset), -1) * range)
     if  (ir1279range >  imax) ir1279range = imax
 
-END 
+END
 
 !*******************************************************************************
 SUBROUTINE setr1279(iseed)
@@ -70,7 +70,7 @@ SUBROUTINE setr1279(iseed)
     PARAMETER (NBITM1 = 31)
 !
 !	Initialize ioffset. This will be increased by (1 mod 2048) for
-!	each random number which is called. 
+!	each random number which is called.
 !
     ioffset = 0
 !
@@ -103,18 +103,18 @@ SUBROUTINE setr1279(iseed)
 
     end do
 
-END 
-    
+END
+
 !*******************************************************************************
 SUBROUTINE setseed(iseed)
     IMPLICIT NONE
-    integer iseed, idum , secs, mygetpid, iran1
-    
-    iseed = abs(mygetpid() * secs())
+    integer iseed, idum , mygetpid, iran1
+
+    iseed = abs(mygetpid()*int(time()))
     idum = -iseed
     iseed = abs (iseed * iran1(idum) )
 
-END 
+END
 !*******************************************************************************
 
       FUNCTION iran1(idum)

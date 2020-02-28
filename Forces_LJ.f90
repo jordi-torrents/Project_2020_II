@@ -14,15 +14,11 @@ contains
       do j=i+1, Npart
         r2=0.d0
 
-        dx = pbc(pos(i,1)-pos(j,1),L)
-        dy = pos(i,2)-pos(j,2)
-        dy = pbc(dy,L)
-        dz = pos(i,3)-pos(j,3)
-        dz = pbc(dz,L)
+        dx = pbc_dist(pos(i,1)-pos(j,1),L)
+        dy = pbc_dist(pos(i,2)-pos(j,2))
+        dz = pbc_dist(pos(i,3)-pos(j,3))
 
-        r2 = r2 +dx**2
-        r2 = r2 +dy**2
-        r2 = r2 +dz**2
+        r2 = dx**2 + dy**2 + dz**2
         r = r2**0.5d0
 
         if (r < cutoff) then
