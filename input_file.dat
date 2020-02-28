@@ -1,0 +1,10 @@
+256	Nparticules
+0.9	Density Particules / sigma**3
+100000	Nsteps
+300	Temperature Kelvins
+0.0003	TimeStep
+1	N Print
+2.628	sigmaLJ Angstroms
+5.465	epsLJ/kB Kelvins 
+2.0	Mass
+2	seed
