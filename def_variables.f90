@@ -4,14 +4,15 @@ module def_variables
   real(8)                 ::      start, finish
   integer                 ::      fStat
 
-  integer                 ::      un_input=101, un_gdr=102, un_mag=103 
+  integer                 ::      un_input=101, un_gdr=102, un_mag=103, un_stats=104 
+
   integer                 ::      Npart, step_print, step, Nsteps, Nprint, Ngdr
   integer                 ::      seed
-  integer       ::      medida=0, iav=0
-  real(8)       ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
-  real(8)       ::      cutoff
+  real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
+  real(8)                 ::      cutoff
   real(8)                 ::      r1279
-  real(8)               ::      kinetic, potential, pressure
+  real(8)                 ::      e_pot, pressure
+
   real(8), allocatable,dimension(:,:)     ::      pos, vel, forces
   real(8), allocatable,dimension(:)       ::      E_tot, kin, pot, press , temp_inst, gdr
 
