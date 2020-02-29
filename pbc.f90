@@ -13,7 +13,7 @@ subroutine pbc_pos()
 
   do i=1,Npart
     do j=1,3
-      pos(i,j) = pos(i,j) - int(pos(i,j)/L)*L
+      pos(i,j) = pos(i,j) - int(2.d0*pos(i,j)/L)*L
     end do
   end do
 
