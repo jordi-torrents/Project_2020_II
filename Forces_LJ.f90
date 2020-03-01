@@ -1,5 +1,6 @@
 module Forces_LJ
   use def_variables
+  use pbc
 
 contains
   subroutine ForcesLJ()
@@ -13,7 +14,7 @@ contains
       do j=i+1, Npart
         r2=0.d0
 
-        dx = pbc_dist(pos(i,1)-pos(j,1),L)
+        dx = pbc_dist(pos(i,1)-pos(j,1))
         dy = pbc_dist(pos(i,2)-pos(j,2))
         dz = pbc_dist(pos(i,3)-pos(j,3))
 

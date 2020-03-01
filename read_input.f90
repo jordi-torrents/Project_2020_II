@@ -20,8 +20,10 @@ module read_input
     read(un_input,*) Npart
     read(un_input,*) dens
     read(un_input,*) Nsteps
+    read(un_input,*) Nterm
     read(un_input,*) temp
     read(un_input,*) dt
+    read(un_input,*) dx
     read(un_input,*) Nprint
     read(un_input,*) sigmaLJ
     read(un_input,*) epsLJ

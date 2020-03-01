@@ -4,9 +4,9 @@ use def_variables
 contains
 
 function pbc_dist(x)
- real(8) :: pbc_scalar, x
- pbc_scalar = x - int(2.d0*x/L)*L
-end function
+ real(8) :: pbc_dist, x
+ pbc_dist = x - int(2.d0*x/L)*L
+end function pbc_dist
 
 subroutine pbc_pos()
   integer :: i, j
@@ -17,7 +17,7 @@ subroutine pbc_pos()
     end do
   end do
 
-end subroutine
+end subroutine pbc_pos
 
 ! subroutine pbc(vec,L_box)
 !

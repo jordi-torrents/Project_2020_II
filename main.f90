@@ -3,10 +3,9 @@ program dynamics
 use def_variables
 use read_input
 use init
-use Forces_LJ
-use integrator
+use integration
 use stadistics
-use gdr
+use gdr_funcs
 
 call cpu_time(start)
 call open_input()
@@ -35,7 +34,7 @@ enddo
 close(un_mag)
 
 call gdr_final()
-call stats()
+call statistics()
 call cpu_time(finish)
 print*,'CPU time:',finish-start,'s'
 

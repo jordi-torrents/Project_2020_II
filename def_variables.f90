@@ -6,10 +6,10 @@ module def_variables
 
   integer                 ::      un_input=101, un_gdr=102, un_mag=103, un_stats=104 
 
-  integer                 ::      Npart, step_print, step, Nsteps, Nprint, Ngdr
+  integer                 ::      Npart, step_print, step, Nsteps, Nprint, Ngdr, Nterm
   integer                 ::      seed
   real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
-  real(8)                 ::      cutoff
+  real(8)                 ::      cutoff, dx
   real(8)                 ::      r1279
   real(8)                 ::      e_pot, pressure
 
