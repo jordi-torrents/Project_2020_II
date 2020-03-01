@@ -21,7 +21,7 @@ subroutine statistics()
 real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstd, pressav, pressstd
 
         open(unit=un_stats,file='stats.log')
-        write(unit=un_stats, fmt=*) 'Temp      Kin     Potencial       E_tot        Pressure'
+        write(unit=un_stats, fmt=*) '# Temp      Kin     Potencial       E_tot        Pressure'
 
         Tav=mean(temp_inst); Tstd=std(temp_inst)
         kinav=mean(kin); kinstd=std(kin)

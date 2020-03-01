@@ -5,7 +5,6 @@ contains
     integer :: i, j, indx
     real(8)     ::      dist
     real(8),dimension(3)     ::  diff    
-
     do i=1,Npart
       do j=i+1,Npart
         diff = pos(i,:)-pos(j,:)
