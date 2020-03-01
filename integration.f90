@@ -7,7 +7,6 @@ use pbc
 contains
 
 subroutine vverlet()
-call ForcesLJ()
 
 pos=pos+vel*dt +0.5d0*forces*dt*dt
 call pbc_pos()

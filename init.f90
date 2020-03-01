@@ -40,6 +40,7 @@ module init
     vel(:,2) = vel(:,2) - sum(vel(:,2))/dble(Npart)
     vel(:,3) = vel(:,3) - sum(vel(:,3))/dble(Npart)
     pos = pos - L/2.d0
+    call ForcesLJ()
   end subroutine
 
 end module
