@@ -7,7 +7,7 @@ contains
     do i=1,Npart
       do j=i+1,Npart
         diff = pos(i,:)-pos(j,:)
-        dist = dsqrt(sum(pos**2))
+        dist = dsqrt(sum(diff**2))
         index = int(dist/dx) + 1
         gdr(index) = gdr(index) + 1
       end do

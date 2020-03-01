@@ -14,14 +14,14 @@ real(8) ::      kinetic
         pot(step)=e_pot/dble(Npart)
         E_tot(step)=kinetic+pot(step)
         press(step)=pressure
-        write(unit=un_mag, fmt=*),temp_inst(step),kin(step),pot(step),E_tot(step), press(step)
+        write(unit=un_mag, fmt=*)temp_inst(step),kin(step),pot(step),E_tot(step), press(step)
 end subroutine results
 
 subroutine statistics()
-real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstv, pressav, pressstd
+real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstd, pressav, pressstd
 
         open(unit=un_stats,file='stats.log')
-        write(unit=un_stats, fmt=*), 'Temp      Kin     Potencial       E_tot        Pressure'
+        write(unit=un_stats, fmt=*) 'Temp      Kin     Potencial       E_tot        Pressure'
 
         Tav=mean(temp_inst); Tstd=std(temp_inst)
         kinav=mean(kin); kinstd=std(kin)
@@ -29,7 +29,7 @@ real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstv, pressav, pressstd
         etotav=mean(E_tot); etotstd=std(E_tot)
         pressav=mean(press); pressstd=std(press)
 
-        write(unit=un_stats, fmt=*), Tav,Tstd, kinav, kinstd, potav, potstd, etotav,etotstv, pressav, pressstd
+        write(unit=un_stats, fmt=*) Tav,Tstd, kinav, kinstd, potav, potstd, etotav,etotstv, pressav, pressstd
         close(un_stats)
 end subroutine statistics
 

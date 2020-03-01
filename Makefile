@@ -7,7 +7,7 @@ FLAGS=-Wall  -fbounds-check
 
 
 ## SimulacioEIA.x  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.x :  r1279.o ran2.o def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o main.o
+SimulacioEIA.x :  r1279.o ran2.o def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
 	$(COMP) $(OPT) $(FLAGS)  Forces_LJ.o pbc.o def_variables.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o main.o SimulacioEIA.x
 
 r1279.o : r1279.f90
@@ -39,6 +39,10 @@ read_input.o : read_input.f90
 
 stadistics.o : stadistics.f90
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
+
+gdr.o : gdr.f90
+	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
+
 
 main.o : main.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
