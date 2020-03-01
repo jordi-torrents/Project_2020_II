@@ -1,11 +1,15 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 
-r = np.array(pd.read_csv('initial_pos.xyz', header=None, skipinitialspace=True, sep=' ').values[:,:-1])
+# file = open('gdr.log', 'r')
+# lines = file.readline
+
+r = np.array(pd.read_csv('gdr.log', header=None, usecols=[0,1], skipinitialspace=True, sep=' '))
+
+# print(r)
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(r[:,0],r[:,1],r[:,2])
+plt.plot(r[:,0],r[:,1])
 plt.show()

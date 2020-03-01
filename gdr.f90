@@ -29,8 +29,7 @@ contains
     do i=1,Ngdr
       volume(i)= (4.d0/3.d0)*pi*(dble(i)*dr)**3-(4.d0/3.d0)*pi*(dble(i-1)*dr)**3
     enddo
-    gdr = gdr/sum(gdr)
-    gdr = gdr/volume
+    gdr = gdr*(dble(Npart)/(volume*dens*sum(gdr)))
 
     open(un_gdr, file='gdr.log')
     do i=1,Ngdr
