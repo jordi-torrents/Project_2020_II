@@ -29,7 +29,7 @@ pbc.o : pbc.f90 def_variables.o
 Forces_LJ.o : Forces_LJ.f90 def_variables.o pbc.o
 	$(COMP) $(OPT) $(FLAGS) -c $< -o $@
 
-init.o : init.f90 def_variables.o
+init.o : init.f90 def_variables.o Forces_LJ.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
 integration.o : integration.f90 def_variables.o Forces_LJ.o pbc.o

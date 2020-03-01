@@ -1,6 +1,6 @@
 module init
   use def_variables
-  ! use rand
+  use Forces_LJ
 
   contains
 
