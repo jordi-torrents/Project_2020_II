@@ -5,7 +5,7 @@ contains
     integer :: i, j, indx
     real(8)     ::      dist, dr
     real(8),dimension(3)     ::  diff
-    dr = (L/2.d0)/Ngdr
+    dr = (L/2.d0)/dble(Ngdr)
     do i=1,Npart
       do j=i+1,Npart
         diff = pos(i,:)-pos(j,:)
@@ -23,7 +23,7 @@ contains
     integer :: i
 
     pi = dacos(-1.d0)
-    dr = (L/2.d0)/Ngdr
+    dr = (L/2.d0)/dble(Ngdr)
     do i=1,Ngdr
       volume(i)= (4.d0/3.d0)*pi*(dble(i)*dr)**3-(4.d0/3.d0)*pi*(dble(i-1)*dr)**3
     enddo
