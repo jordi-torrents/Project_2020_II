@@ -23,13 +23,17 @@ call initialize()
 
 do i=1,Nterm
         call vverlet()
+        call andersen_termo()
 enddo
 
+call gdr_step()
+call results()
 
-do step =1,int(Nsteps/Nprint),1
+do step =1,int(Nsteps/Nprint)
         time = time + dt
         do step_print=1, Nprint
                 call vverlet()
+                call andersen_termo()
         enddo
         call gdr_step()
         call results()
