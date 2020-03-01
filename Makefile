@@ -6,7 +6,7 @@ FLAGS=-Wall  -fbounds-check
 
 
 
-## SimulacioEIA.x  Programa calculo Modulo y Distancia de dos vectores
+## SimulacioEIA.x  Main simulation program
 SimulacioEIA.x :  def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
 	$(COMP) $(OPT) $(FLAGS)  def_variables.o pbc.o Forces_LJ.o init.o integration.o  read_input.o stadistics.o gdr.o main.o -o SimulacioEIA.x
 
@@ -48,12 +48,12 @@ main.o : main.f90 def_variables.o pbc.o Forces_LJ.o init.o integration.o read_in
 
 # SimulacioEIA_directe: r1279.f90 ran2.f90 secs.f90 secs.o def_variables.f90 Forces_LJ.f90 pbc.f90 init.f90o integration.f90 read_input.f90 stadistics.f90  main.of90 SimulacioEIA_directe.x
 
-## run : Run the program vectors.x
+## run : Run the program SimulacioEIA_directe.x
 .PHONY: run_directe
 run:
 	./SimulacioEIA_directe.x
 
-## run : Run the program vectors.x
+## run : Run the program SimulacioEIA.x
 .PHONY: run
 run:
 	./SimulacioEIA.x
@@ -79,15 +79,15 @@ help:
 	@grep '^##' Makefile
 
 
-## vabs : imprime valor de variables
+## vabs : Print variables value
 .PHONY: vabs
 vabs :
 	@echo COMP:  $(COMP)
 	@echo OPT:   $(OPT)
 	@echo FLAGS: $(FLAGS)
 
-## tar.gz : Genera un tar.gz con todos los archivos .f90 y el Makefile
+## tar.gz : Generate a .tar with all f.90 files and the Makefile itself
 .PHONE: tar.gz
 tar.gz :
-	#tar -cvzf vectors.tar.gz *.f90 Makefile
+	#tar -cvzf SimulationEIA.tar.gz *.f90 Makefile
 	tar -cvzf vectors.$(shell date +%d_%m_%y).tar.gz *.f90 Makefile
