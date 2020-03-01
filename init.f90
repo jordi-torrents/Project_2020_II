@@ -5,18 +5,19 @@ module init
   contains
 
   subroutine initialize()
-    integer :: side, i, j, k, count
+    integer :: side, i, j, k, count, size_seed
     real(8) :: dx, pi2, U1, U2, U3, U4
-    integer, allocatable        ::      s(:)
+    integer, allocatable        ::      seed_array(:)
     
     time = 0.d0
     pi2 = 2.d0*acos(-1.d0)
     count=0
     side = int(dble(Npart)**(1.d0/3.d0))+1
     dx=L/dble(side)
-    call random_seed(size=seed)
-    allocate(s(seed))
-    call random_seed(get=s)
+    call random_seed(size=size_seed)
+    allocate(seed_array(size_seed))
+    seed_array(:) = seed
+    call random_seed(put=seed_array)
     do i = 1, side
       do j = 1, side
         do k = 1, side
