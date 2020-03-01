@@ -1,13 +1,18 @@
 512	Nparticules
 0.9	Density Particules / sigma**3
-100	Nsteps
+10000	Nsteps
 100	Nterm
 300	Temperature Kelvins
 0.0003	TimeStep
+<<<<<<< HEAD
 1	N Print
+=======
+100	N Print
+>>>>>>> a2fcbd821a2fab69105477d1b4b83dac6f5da6be
 2.628	sigmaLJ Angstroms
 5.465	epsLJ/kB Kelvins
 2.0	Mass
 10	seed
 50 Number of gdr beads
 2.5 cutoff
+0.05 nu (/dt)
