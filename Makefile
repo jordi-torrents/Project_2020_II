@@ -7,9 +7,9 @@ INP=input_file.dat
 
 
 
-## SimulacioEIA.x  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.x :  def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
-	$(COMP) $(OPT) $(FLAGS)  def_variables.o pbc.o Forces_LJ.o init.o integration.o  read_input.o stadistics.o gdr.o main.o -o SimulacioEIA.x
+## SimulacioEIA.exe  Programa calculo Modulo y Distancia de dos vectores
+SimulacioEIA.exe :  def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
+	$(COMP) $(OPT) $(FLAGS)  def_variables.o pbc.o Forces_LJ.o init.o integration.o  read_input.o stadistics.o gdr.o main.o -o SimulacioEIA.exe
 
 #r1279.o : r1279.f90
 #	$(COMP) $(OPT)  -c  $< -o $@
@@ -51,13 +51,13 @@ main.o : main.f90 def_variables.o pbc.o Forces_LJ.o init.o integration.o read_in
 
 ## run : Run the program vectors.x
 .PHONY: run_directe
-run:
-	./SimulacioEIA_directe.x
+run_directe:
+	./SimulacioEIA_directe.x $(INP)
 
 ## run : Run the program vectors.x
 .PHONY: run
 run:
-	./SimulacioEIA.x $(INP)
+	./SimulacioEIA.exe $(INP)
 
 ## clean : rm  *.o *.mod
 .PHONY: clean
