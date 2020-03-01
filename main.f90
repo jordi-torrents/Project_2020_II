@@ -14,7 +14,7 @@ call read_parameters()
 call srand(seed)
 
 open(unit=un_mag,file='results.log')
-write(unit=un_mag, fmt=*) 'Temp      Kin     Potencial       E_tot        Pressure'
+write(unit=un_mag, fmt=*) 'Time         Temp      Kin     Potencial       E_tot        Pressure'
 call open_input()
 call read_parameters()
 
@@ -25,23 +25,24 @@ do i=1, Npart
 write(100,*) pos(i,:)
 enddo
 close(100)
-!
-!do i=1,Nterm
-!        call vverlet()
-!enddo
-!
-!
-!do step =1,int(Nsteps/Nprint),1
-!        do step_print=1, Nprint
-!                call vverlet()
-!        enddo
-!!        call gdr_step()
-!        call results()
-!enddo
-!close(un_mag)
-!
-!!call gdr_final()
-!call statistics()
+
+do i=1,Nterm
+        call vverlet()
+enddo
+
+
+do step =1,int(Nsteps/Nprint),1
+        time = time + dt
+        do step_print=1, Nprint
+                call vverlet()
+        enddo
+        call gdr_step()
+        call results()
+enddo
+close(un_mag)
+
+call gdr_final()
+call statistics()
 call cpu_time(finish)
 print*,'CPU time:',finish-start,'s'
 

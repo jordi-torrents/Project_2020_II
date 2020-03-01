@@ -1,6 +1,7 @@
 COMP=gfortran
 OPT=-O3
 FLAGS=-Wall  -fbounds-check
+INP=input_file.dat
 #FLAGS=-Wall
 
 
@@ -56,7 +57,7 @@ run:
 ## run : Run the program vectors.x
 .PHONY: run
 run:
-	./SimulacioEIA.x
+	./SimulacioEIA.x $(INP)
 
 ## clean : rm  *.o *.mod
 .PHONY: clean
