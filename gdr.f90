@@ -5,7 +5,7 @@ contains
   subroutine gdr_step()
     integer :: i, j, indx
     real(8)     ::      dist, dr, dx, dy, dz
-    dr = (L/2.d0)/dble(Ngdr)
+    dr = (dsqrt(3.d0)*L/2.d0)/dble(Ngdr)
     do i=1,Npart
       do j=i+1,Npart
         dx = pbc_dist(pos(i,1)-pos(j,1))
@@ -13,9 +13,7 @@ contains
         dz = pbc_dist(pos(i,3)-pos(j,3))
         dist = dsqrt(dx*dx+dy*dy+dz*dz)
         indx = int(dist/dr) + 1
-        if (indx<Ngdr+1) then
-          gdr(indx) = gdr(indx) + 1
-        end if
+        gdr(indx) = gdr(indx) + 1
       end do
     end do
 
@@ -27,11 +25,11 @@ contains
     integer :: i
 
     pi = dacos(-1.d0)
-    dr = (L/2.d0)/dble(Ngdr)
+    dr = (dsqrt(3.d0)*L/2.d0)/dble(Ngdr)
     do i=1,Ngdr
       volume(i)= (4.d0/3.d0)*pi*(dble(i)*dr)**3-(4.d0/3.d0)*pi*(dble(i-1)*dr)**3
     enddo
-    gdr = gdr*(2.d0/(volume*dens*Npart*(1+int(Nsteps/Nprint))))
+    gdr = gdr*(dble(Npart)/(volume*dens*sum(gdr)))
 
     open(un_gdr, file='gdr.log')
     do i=1,Ngdr
