@@ -10,7 +10,7 @@ module def_variables
   integer                 ::      seed
   real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
   real(8)                 ::      cutoff, dx
-  real(8)                 ::      r1279
+  real(8)                 ::      rand!, r1279
   real(8)                 ::      e_pot, pressure
 
   real(8), allocatable,dimension(:,:)     ::      pos, vel, forces

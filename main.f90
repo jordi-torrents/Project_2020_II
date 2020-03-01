@@ -10,9 +10,11 @@ use gdr_funcs
 call cpu_time(start)
 call open_input()
 call read_parameters()
-call setr1279(seed)
+!call setr1279(seed)
+call srand(seed)
 
 open(unit=un_mag,file='results.log')
+write(unit=un_mag, fmt=*) 'Temp      Kin     Potencial       E_tot        Pressure'
 call open_input()
 call read_parameters()
 
@@ -28,12 +30,12 @@ do step =1,int(Nsteps/Nprint),1
         do step_print=1, Nprint
                 call vverlet()
         enddo
-        call gdr_step()
+!        call gdr_step()
         call results()
 enddo
 close(un_mag)
 
-call gdr_final()
+!call gdr_final()
 call statistics()
 call cpu_time(finish)
 print*,'CPU time:',finish-start,'s'

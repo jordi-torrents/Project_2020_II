@@ -2,7 +2,7 @@ module gdr_funcs
   use def_variables
 contains
   subroutine gdr_step()
-    integer :: i, j
+    integer :: i, j, indx
     real(8)     ::      dist
     real(8),dimension(3)     ::  diff    
 
@@ -10,8 +10,8 @@ contains
       do j=i+1,Npart
         diff = pos(i,:)-pos(j,:)
         dist = dsqrt(sum(diff**2))
-        index = int(dist/dx) + 1
-        gdr(index) = gdr(index) + 1
+        indx = int(dist/dx) + 1
+        gdr(indx) = gdr(indx) + 1
       end do
     end do
 
