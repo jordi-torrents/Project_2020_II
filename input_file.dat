@@ -1,4 +1,4 @@
-256	Nparticules
+512	Nparticules
 0.9	Density Particules / sigma**3
 100	Nsteps
 100	Nterm

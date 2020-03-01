@@ -11,7 +11,7 @@ module def_variables
   real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
   real(8)                 ::      cutoff, dx
   real(8)                 ::      rand!, r1279
-  real(8)                 ::      e_pot, pressure
+  real(8)                 ::      e_pot, pressure, time
 
   real(8), allocatable,dimension(:,:)     ::      pos, vel, forces
   real(8), allocatable,dimension(:)       ::      E_tot, kin, pot, press , temp_inst, gdr

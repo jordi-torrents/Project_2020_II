@@ -14,7 +14,7 @@ real(8) ::      kinetic
         pot(step)=e_pot/dble(Npart)
         E_tot(step)=kinetic+pot(step)
         press(step)=pressure
-        write(unit=un_mag, fmt=*) temp_inst(step),kin(step),pot(step),E_tot(step), press(step)
+        write(unit=un_mag, fmt=*) time, temp_inst(step),kin(step),pot(step),E_tot(step), press(step)
 end subroutine results
 
 subroutine statistics()
