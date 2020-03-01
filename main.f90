@@ -11,10 +11,10 @@ call cpu_time(start)
 call open_input()
 call read_parameters()
 !call setr1279(seed)
-call srand(seed)
+!call srand(seed)
 
 open(unit=un_mag,file='results.log')
-write(unit=un_mag, fmt=*) 'Time         Temp      Kin     Potencial       E_tot        Pressure'
+write(unit=un_mag, fmt=*) '# Time         Temp      Kin     Potencial       E_tot        Pressure'
 call open_input()
 call read_parameters()
 
