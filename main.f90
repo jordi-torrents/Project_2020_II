@@ -20,23 +20,28 @@ call read_parameters()
 
 call allocate_arrays(Nsteps, Nprint, Npart)
 call initialize()
-
-do i=1,Nterm
-        call vverlet()
+open(unit=100,file='geom.xyz')
+do i=1, Npart
+write(100,*) pos(i,:)
 enddo
-
-
-do step =1,int(Nsteps/Nprint),1
-        do step_print=1, Nprint
-                call vverlet()
-        enddo
-!        call gdr_step()
-        call results()
-enddo
-close(un_mag)
-
-!call gdr_final()
-call statistics()
+close(100)
+!
+!do i=1,Nterm
+!        call vverlet()
+!enddo
+!
+!
+!do step =1,int(Nsteps/Nprint),1
+!        do step_print=1, Nprint
+!                call vverlet()
+!        enddo
+!!        call gdr_step()
+!        call results()
+!enddo
+!close(un_mag)
+!
+!!call gdr_final()
+!call statistics()
 call cpu_time(finish)
 print*,'CPU time:',finish-start,'s'
 
