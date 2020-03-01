@@ -9,12 +9,12 @@ real(8) ::      kinetic
 
         call pressure_e_pot()
         kinetic=0.5d0*sum(vel**2)/dble(Npart)
-        temp_inst(step+1)=kinetic*2.0d0/(3.0d0)
-        kin(step+1)=kinetic
-        pot(step+1)=e_pot/dble(Npart)
-        E_tot(step+1)=kinetic+pot(step+1)
-        press(step+1)=pressure
-        write(unit=un_mag, fmt=*) time, temp_inst(step+1),kin(step+1),pot(step+1),E_tot(step+1), press(step+1)
+        temp_inst(step)=kinetic**2.0d0/(3.0d0)
+        kin(step)=kinetic
+        pot(step)=e_pot/dble(Npart)
+        E_tot(step)=kinetic+pot(step)
+        press(step)=pressure
+        write(unit=un_mag, fmt=*) time, temp_inst(step),kin(step),pot(step),E_tot(step), press(step)
 end subroutine results
 
 subroutine statistics()
