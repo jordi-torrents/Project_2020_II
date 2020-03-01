@@ -7,14 +7,14 @@ FLAGS=-Wall  -fbounds-check
 
 
 ## SimulacioEIA.x  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.x :  r1279.o ran2.o def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
-	$(COMP) $(OPT) $(FLAGS)  def_variables.o pbc.o Forces_LJ.o init.o integration.o  read_input.o stadistics.o r1279.o ran2.o gdr.o main.o -o SimulacioEIA.x
+SimulacioEIA.x :  def_variables.o Forces_LJ.o pbc.o init.o integration.o  read_input.o stadistics.o gdr.o main.o
+	$(COMP) $(OPT) $(FLAGS)  def_variables.o pbc.o Forces_LJ.o init.o integration.o  read_input.o stadistics.o gdr.o main.o -o SimulacioEIA.x
 
-r1279.o : r1279.f90
-	$(COMP) $(OPT)  -c  $< -o $@
-
-ran2.o : ran2.f
-	$(COMP) $(OPT) -c  $< -o $@
+#r1279.o : r1279.f90
+#	$(COMP) $(OPT)  -c  $< -o $@
+#
+#ran2.o : ran2.f
+#	$(COMP) $(OPT) -c  $< -o $@
 
 # secs.o : secs.c
 # 	gcc $(OPT)  -c  $< -o $@
@@ -25,22 +25,22 @@ def_variables.o : def_variables.f90
 pbc.o : pbc.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-Forces_LJ.o : Forces_LJ.f90
+Forces_LJ.o : Forces_LJ.f90 def_variables.o pbc.o
 	$(COMP) $(OPT) $(FLAGS) -c $< -o $@
 
-init.o : init.f90
+init.o : init.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-integration.o : integration.f90
+integration.o : integration.f90 def_variables.o Forces_LJ.o pbc.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-read_input.o : read_input.f90
+read_input.o : read_input.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-stadistics.o : stadistics.f90
+stadistics.o : stadistics.f90 def_variables.o Forces_LJ.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
-gdr.o : gdr.f90
+gdr.o : gdr.f90 def_variables.o
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
 
 main.o : main.f90 def_variables.o pbc.o Forces_LJ.o init.o integration.o read_input.o stadistics.o gdr.o
