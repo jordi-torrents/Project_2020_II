@@ -3,13 +3,14 @@ module gdr_funcs
 contains
   subroutine gdr_step()
     integer :: i, j, indx
-    real(8)     ::      dist
-    real(8),dimension(3)     ::  diff    
+    real(8)     ::      dist, dr
+    real(8),dimension(3)     ::  diff
+    dr = (L/2.d0)/Ngdr
     do i=1,Npart
       do j=i+1,Npart
         diff = pos(i,:)-pos(j,:)
         dist = dsqrt(sum(diff**2))
-        indx = int(dist/dx) + 1
+        indx = int(dist/dr) + 1
         gdr(indx) = gdr(indx) + 1
       end do
     end do
