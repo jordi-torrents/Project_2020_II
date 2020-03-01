@@ -20,9 +20,9 @@ call read_parameters()
 
 call allocate_arrays(Nsteps, Nprint, Npart)
 call initialize()
-open(unit=100,file='geom.xyz')
+open(unit=100,file='initial_vel.xyz')
 do i=1, Npart
-write(100,*) pos(i,:)
+write(100,*) vel(i,:)
 enddo
 close(100)
 
