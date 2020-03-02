@@ -10,8 +10,8 @@ real(8) ::      kinetic
         call pressure_e_pot()
         kinetic=0.5d0*sum(vel**2)/dble(Npart)
         temp_inst(step+1)=kinetic*2.0d0/(3.0d0)
-        kin(step+1)=kinetic
-        pot(step+1)=e_pot/dble(Npart)
+        kin(step+1)=kinetic*0.001
+        pot(step+1)=e_pot/dble(Npart)*0.001
         E_tot(step+1)=kinetic+pot(step+1)
         press(step+1)=pressure
         write(unit=un_mag, fmt=*) time*timef,temp_inst(step+1)*temperaturef,kin(step+1)*epsLJ, pot(step+1)*epsLJ,&
@@ -19,18 +19,18 @@ real(8) ::      kinetic
 end subroutine results
 
 subroutine statistics()
-real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstd, pressav, pressstd
+real(8):: Tav, 		Tstd,		kinav,		kinstd,		potav,		potstd,		etotav,		etotstd, 		pressav, 		pressstd
 
         open(unit=un_stats,file='stats.log')
-        write(unit=un_stats, fmt=*) '# Temp      Kin     Potencial       E_tot        Pressure'
+        write(unit=un_stats, fmt=*) '# 		Temp (K)      	Kin (kJ/mol)    Potential (kJ/mol)       E_tot (kJ/mol)      Pressure (Pa)'
 
         Tav=mean(temp_inst); Tstd=std(temp_inst)
         kinav=mean(kin); kinstd=std(kin)
         potav=mean(pot); potstd=std(pot)
         etotav=mean(E_tot); etotstd=std(E_tot)
         pressav=mean(press); pressstd=std(press)
-        write(unit=un_stats, fmt=*) "Mean", Tav*temperaturef, kinav*epsLJ, potav*epsLJ, etotav*epsLJ, pressav*pressuref
-        write(unit=un_stats, fmt=*) "Standard Deviation", Tstd*temperaturef,  kinstd*epsLJ,&
+        write(unit=un_stats, fmt=*) "Mean", 	Tav*temperaturef, 	kinav*epsLJ, 	potav*epsLJ, 	etotav*epsLJ, 	pressav*pressuref
+        write(unit=un_stats, fmt=*) "Std", Tstd*temperaturef,  kinstd*epsLJ,&
 					potstd*epsLJ,etotstd*epsLJ,  pressstd*pressuref
         close(un_stats)
 end subroutine statistics

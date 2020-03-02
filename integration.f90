@@ -6,7 +6,7 @@ module integration
 
 contains
 
-subroutine vverlet()
+subroutine vverlet() ! velocity verlet algorithm
   pos=pos+vel*dt +0.5d0*forces*dt*dt
   call pbc_pos()
   vel=vel+forces*0.5d0*dt
@@ -14,7 +14,7 @@ subroutine vverlet()
   vel=vel+forces*0.5d0*dt
 end subroutine vverlet
 
-subroutine andersen_termo()
+subroutine andersen_termo() ! andersen thermostat
   integer :: i
   real(8) :: U0, U1, U2, U3, U4
 
