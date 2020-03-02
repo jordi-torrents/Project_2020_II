@@ -1,7 +1,7 @@
-1024	Nparticules
+524	Nparticules
 0.9	Density Particules / sigma**3
 10000	Nsteps
-100	Nterm
+10000	Nterm
 300	Temperature Kelvins
 0.0003	TimeStep
 100	N Print
