@@ -1,4 +1,3 @@
-!jei hou lets gou 2
 program dynamics
 
 use def_variables
@@ -11,8 +10,6 @@ use gdr_funcs
 call cpu_time(start)
 call open_input()
 call read_parameters()
-!call setr1279(seed)
-!call srand(seed)
 
 open(unit=un_mag,file='results.log')
 write(unit=un_mag, fmt=*) '# Time         Temp      Kin     Potencial       E_tot        Pressure'
@@ -22,11 +19,12 @@ call read_parameters()
 call allocate_arrays(Nsteps, Nprint, Npart)
 call initialize()
 
-do i=1,Nterm
+do step=1,Nterm
         call vverlet()
         call andersen_termo()
 enddo
 
+step=0
 call gdr_step()
 call results()
 
