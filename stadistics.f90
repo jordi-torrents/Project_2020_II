@@ -14,8 +14,8 @@ real(8) ::      kinetic
         pot(step+1)=e_pot/dble(Npart)
         E_tot(step+1)=kinetic+pot(step+1)
         press(step+1)=pressure
-        write(unit=un_mag, fmt=*) time*timef,
-        temp_inst(step+1)*temperaturef,kin(step+1)*epsLJ,pot(step+1)*epsLJ,E_tot(step+1)*epsLJ, press(step+1)*pressuref
+        write(unit=un_mag, fmt=*) time*timef,temp_inst(step+1)*temperaturef,kin(step+1)*epsLJ, pot(step+1)*epsLJ,&
+					E_tot(step+1)*epsLJ, press(step+1)*pressuref
 end subroutine results
 
 subroutine statistics()
@@ -30,7 +30,8 @@ real(8):: Tav, Tstd,kinav,kinstd,potav,potstd,etotav,etotstd, pressav, pressstd
         etotav=mean(E_tot); etotstd=std(E_tot)
         pressav=mean(press); pressstd=std(press)
         write(unit=un_stats, fmt=*) "Mean", Tav*temperaturef, kinav*epsLJ, potav*epsLJ, etotav*epsLJ, pressav*pressuref
-        write(unit=un_stats, fmt=*) "Standard Deviation", Tstd*temperaturef,  kinstd*epsLJ,  potstd*epsLJ, ,etotstv*epsLJ,  pressstd*pressuref
+        write(unit=un_stats, fmt=*) "Standard Deviation", Tstd*temperaturef,  kinstd*epsLJ,&
+					potstd*epsLJ,etotstd*epsLJ,  pressstd*pressuref
         close(un_stats)
 end subroutine statistics
 
@@ -50,7 +51,7 @@ real(8)::std
 
 
         media=mean(x)
-        suma=sum((x(i)-media)**2)
+        suma=sum((x(:)-media)**2)
 
         std=dsqrt(suma/(size(x)-1.0d0))
 
