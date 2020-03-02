@@ -90,8 +90,8 @@ vabs :
 ## tar.gz : Genera un tar.gz con todos los archivos .f90 y el Makefile
 .PHONY: tar.gz
 tar.gz :
-	#tar -cvzf vectors.tar.gz *.f90 Makefile
-	tar -cvzf vectors.$(shell date +%d_%m_%y).tar.gz *.f90 Makefile
+	#tar -cvzf SimulationEIA.tar.gz *.f90 Makefile
+	tar -cvzf SimulationEIA.$(shell date +%d_%m_%y).tar.gz *.f90 *.dat *.md *.gp Makefile
 
 ## plots : hace las gráficas png de GRD y energías en función del tiempo
 .PHONY: plots
