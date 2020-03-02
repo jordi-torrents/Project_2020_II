@@ -9,7 +9,8 @@ module def_variables
   integer                 ::      Npart, step_print, step, Nsteps, Nprint, Ngdr, Nterm
   integer                 ::      seed
   real(8)                 ::      dens, temp, dt, sigmaLJ, epsLJ, mass, L
-  real(8)                 ::      cutoff, dx, nu
+  real(8)                 ::      cutoff, dx, nu,pi
+  real(8)                 ::      temperaturef, pressuref,timef
   real(8)                 ::      e_pot, pressure, time
 
   real(8), allocatable,dimension(:,:)     ::      pos, vel, forces
