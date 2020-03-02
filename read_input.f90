@@ -31,6 +31,12 @@ module read_input
     read(un_input,*) Ngdr
     read(un_input,*) cutoff
     read(un_input,*) nu
+    !conversion factors are computed
+    temperaturef=epsLJ
+    temp=temp/temperaturef
+    epsLJ=epsLJ*kB*NA
+    timef=sigmaLJ*1d2*dsqrt(mass/(epsLJ*1000.d0))
+    pressuref=epsLJ*1d30/(NA*sigmaLJ**3.d0)
     L = (dble(Npart)/dens)**(1.d0/3.d0)
     close(un_input)
   end subroutine read_parameters
