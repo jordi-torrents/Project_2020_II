@@ -1,42 +1,57 @@
 reset
 
 set term png
-set output "GraphsSimEnergies.png"
+set output GraphsSimEnergies.png
+set multiplot
 
-set xlabel 'Time'
-set ylabel 'Energy'
+set x label 'Time'
+set y label 'Energy'
+set autoscale
 
-p "results.log" u 1:3 w l title "Kinetic Energy", "results.log" u 1:4 w l title "Potential", "results.log" u 1:5 w l title "Total Energy"
+p "results.log" u 1:3 w l title "Kinetic Energy"
 
+set x label 'Time'
+set y label 'Energy'
+set autoscale
+
+p "results.log" u 1:4 w l title "Potential"
+
+set x label 'Time'
+set y label 'Energy'
+set autoscale
+
+p "results.log" u 1:5 w l title "Total Energy"
+
+unset multiplot
 unset output
 
-set output "GraphSimTemp.png"
+set output GraphSimTemp.png
 
-set xlabel 'Time'
-set ylabel 'Temperature'
+set x label 'Time'
+set y label 'Temperature'
 set autoscale
 
 p "results.log" u 1:2 w l title "Temperature"
 
 unset output
 
-set output "GraphSimPress.png"
+set output GraphSimPress.png
 
-set xlabel 'Time'
-set ylabel 'Pressure'
+set x label 'Time'
+set y label 'Pressure'
 set autoscale
 
 p "results.log" u 1:6 w l title "Pressure"
 
 unset output
 
-set output "GraphSimGDR.png"
+set output GraphSimGDR.png
 
-set xlabel 'Time'
-set ylabel 'Pressure'
+set x label 'Time'
+set y label 'Pressure'
 set autoscale
 
-p "gdr.log" u 1:2 w l title "GDR"
+p "gdr" u 1:2 w l title "GDR"
 
 unset output
 

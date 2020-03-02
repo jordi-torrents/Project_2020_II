@@ -8,8 +8,9 @@ module init
     integer :: side, i, j, k, count, size_seed
     real(8) :: dx, pi2, U1, U2, U3, U4
     integer, allocatable        ::      seed_array(:)
-    
+
     time = 0.d0
+    step=0
     pi2 = 2.d0*acos(-1.d0)
     count=0
     side = int(dble(Npart)**(1.d0/3.d0))+1
