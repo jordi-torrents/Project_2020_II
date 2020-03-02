@@ -88,7 +88,13 @@ vabs :
 	@echo FLAGS: $(FLAGS)
 
 ## tar.gz : Genera un tar.gz con todos los archivos .f90 y el Makefile
-.PHONE: tar.gz
+.PHONY: tar.gz
 tar.gz :
 	#tar -cvzf vectors.tar.gz *.f90 Makefile
 	tar -cvzf vectors.$(shell date +%d_%m_%y).tar.gz *.f90 Makefile
+
+## plots : hace las gráficas png de GRD y energías en función del tiempo
+.PHONY: plots
+plots:
+	@echo Generando gráficas
+	@gnuplot graphsim.gp
