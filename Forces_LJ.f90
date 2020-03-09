@@ -22,11 +22,16 @@ contains
         if (r2 < cutoff2) then
           ff = (48.d0/r2**7-24.d0/r2**4) ! L-J force
 
+          ! forces_matrix(i,j,:) = ff*dxyz
+          ! forces_matrix(j,i,:) =-ff*dxyz
+
           forces(i,:)=forces(i,:) + ff*dxyz
           forces(j,:)=forces(j,:) - ff*dxyz
         end if
       end do
     end do
+
+    ! forces = sum(force_matrix, dim=2)
 
   end subroutine
 
