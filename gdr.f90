@@ -18,7 +18,7 @@ contains
         indx = int(r/dr) + 1
       ! if distance is lower than L/2, put it in the histogram
         if (indx<Ngdr+1) then
-          gdr(indx) = gdr(indx) + 1
+          gdr(indx) = gdr(indx) + 1.d0
         end if
       end do
     end do
