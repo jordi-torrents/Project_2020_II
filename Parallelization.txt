@@ -26,4 +26,4 @@ loop de vverlet:
 	
 Hay otras partes del código donde la paralelizacion es posible pero estudiamos la viabilidad de hacerlo ya que con lo expuesto ya tendremos muchíssimo trabajo.
 
-Este texto lo hemos escrito en grupo y queremos paralelizar el programa en grupo tambiés porque ningún miembro sabe ahún como hacer este proceso y nos vamos a ayudar mutuamente.
+Este texto lo hemos escrito en grupo y queremos paralelizar el programa en grupo también porque ningún miembro sabe aún como hacer este proceso y nos vamos a ayudar mutuamente.
