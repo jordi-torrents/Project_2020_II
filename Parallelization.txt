@@ -1,0 +1,29 @@
+Loop de ForcesLJ:
+
+	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
+	-Convertimos nuestra matriz de partículas individuales(i,:),(j,:) en una matriz de parejas (i,j,:), para que así
+	todos los workers trabajen con índices distintos y no de error al paralelizar.
+
+loop de Pressure_e_pot:
+	
+	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
+	-Añadimos el cálculo de Energía cinética para poder paralelizarla.
+
+loop de gdr_step:
+
+	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
+	-Dudamos entre 2 ideas:
+		-Trabajar con gdr's temporales por cada worker, que al acabar se tendran que sumar.
+		-N-1 workers van calculando indices a la par que los envian a un solo worker que lo añade a la gdr.
+
+loop de andersen_termo:	
+
+	-La seed de inicializacion del módulo random se multiplica por el task id de cada worker, porque en las rutinas 
+	andersen_termo cada worker se va a encargar de un conjunto de partículas distintas y queremos crear una seed distinta
+	para cada uno.
+
+loop de vverlet:
+
+	-
+	
+Hay otras partes del código donde la paralelizacion es posible pero estudiamos la viabilidad de hacerlo.
