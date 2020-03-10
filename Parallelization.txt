@@ -1,29 +1,29 @@
 Loop de ForcesLJ:
 
-	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
-	-Convertimos nuestra matriz de partículas individuales(i,:),(j,:) en una matriz de parejas (i,j,:), para que así
-	todos los workers trabajen con índices distintos y no de error al paralelizar.
+	-Encontrar una forma para que los nested loops (do i=1,N-1 /j=i,N) se puedan repartir de una forma equitativa
+	-Convertimos nuestro array de de fuerzas de partículas individuales (1:N,1:3), en una matriz de parejas (1:N,1:N,1:3), para que así todos los workers trabajen con índices distintos y no de error al paralelizar.
 
 loop de Pressure_e_pot:
 	
-	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
-	-Añadimos el cálculo de Energía cinética para poder paralelizarla.
+	-Encontrar una forma para que los nested loops (do i=1,N-1 /j=i,N) se puedan repartir de forma equitativa
+	-Añadimos el cálculo de Energía cinética en esa paralelización para poder optimizarla.
 
 loop de gdr_step:
 
-	-Encontrar una forma para que los nested loops do i=1,N-1 / i,N se puedan repartir una forma de trabajo equitativa
+	-Encontrar una forma para que los nested loops (do i=1,N-1 /j=i,N) se puedan repartir de forma equitativa
 	-Dudamos entre 2 ideas:
 		-Trabajar con gdr's temporales por cada worker, que al acabar se tendran que sumar.
-		-N-1 workers van calculando indices a la par que los envian a un solo worker que lo añade a la gdr.
+		- nproc-1 workers van calculando indices a la par que los envian al master que los añade a la gdr.
 
 loop de andersen_termo:	
 
-	-La seed de inicializacion del módulo random se multiplica por el task id de cada worker, porque en las rutinas 
-	andersen_termo cada worker se va a encargar de un conjunto de partículas distintas y queremos crear una seed distinta
-	para cada uno.
+	-La seed de inicializacion del módulo random se multiplica por el taskid de cada worker, asi en las rutinas 
+	andersen_termo donde cada worker se va a encargar de un conjunto de partículas distintas vamos a trabajar con números random distintos
 
 loop de vverlet:
 
-	-
+	- abrir los loops implicitos y paralelizarlos encargando diferentes indices a calcular a los diferentes workers
 	
-Hay otras partes del código donde la paralelizacion es posible pero estudiamos la viabilidad de hacerlo.
+Hay otras partes del código donde la paralelizacion es posible pero estudiamos la viabilidad de hacerlo ya que con lo expuesto ya tendremos muchíssimo trabajo.
+
+Este texto lo hemos escrito en grupo y queremos paralelizar el programa en grupo tambiés porque ningún miembro sabe ahún como hacer este proceso y nos vamos a ayudar mutuamente.
