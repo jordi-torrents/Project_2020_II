@@ -7,7 +7,7 @@
 100	N Print
 2.628	sigmaLJ Angstroms
 5.465	epsLJ/kB Kelvins
-2.0	Mass
+4.0	Mass
 10	seed
 50 Number of gdr beads
 2.5 cutoff
