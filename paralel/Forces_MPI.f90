@@ -3,6 +3,7 @@ program vectors
 implicit none
 include 'mpif.h'
 
+integer                ::   MPI_COMM_WORLD
 integer                ::   ierror, workerid, numproc
 real(8)                ::   pos(5,3), Vc, forces(5,3)
 real(8), allocatable   ::   pair_forces(:,:)
@@ -13,7 +14,7 @@ integer, allocatable   ::   sizes(:), displs(:), pair_indx(:,:)
 call MPI_INIT(ierror)
 call MPI_COMM_RANK(MPI_COMM_WORLD,workerid,ierror)
 call MPI_COMM_SIZE(MPI_COMM_WORLD,numproc,ierror)
-
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 master = 0
 N=size(pos(:,1))
 N_pairs = (N*N-N)/2
@@ -61,20 +62,20 @@ if (workerid==master) then
    end do
    print*, 'sizes',sizes
 end if
-
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 call MPI_BCAST(pos, (N*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
-
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 do i=start,finish
     pair_forces(i,:)=(/pos(pair_indx(i,1),1) + pos(pair_indx(i,2),1),&
                        pos(pair_indx(i,1),2) - pos(pair_indx(i,2),2),&
                        pos(pair_indx(i,1),3) * pos(pair_indx(i,2),3)/)
 end do
-
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 do i=1,3
 call MPI_GATHERV(pair_forces(start:finish,i),(finish-start+1),MPI_DOUBLE_PRECISION, &
                  pair_forces(:,i),sizes,displs,MPI_DOUBLE_PRECISION, master,MPI_COMM_WORLD,ierror)
 end do
-
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 if (workerid==master) then
    print*, 'Pair forces master'
    counter=0
@@ -95,5 +96,6 @@ if (workerid==master) then
       print*, forces(i,:)
    end do
 endif
+print*,'workerid',workerid,'MPI_COMM_WORLD',MPI_COMM_WORLD
 call MPI_FINALIZE(ierror)
 end program vectors
