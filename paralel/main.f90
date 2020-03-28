@@ -18,19 +18,18 @@ call open_input()
 call read_parameters()
 call init_mpi(Npart)
 call allocate_arrays(Nsteps, Nprint, Npart)
+step=-1
 call initialize()
 
 if (workerid==master) then
 open(unit=un_mag,file='results.log')
 write(unit=un_mag, fmt=*) '# Time         Temp      Kin     Potencial       E_tot        Pressure'
 endif
-print*,'Workerid / first-last particle', workerid,'/', first_part,'-',last_part
-print*,'Workerid / first-last pair', workerid,'/', first_pair,'-',last_pair
 do step=1,Nterm
   call vverlet()
   call andersen_termo()
 enddo
-
+!call MPI_BARRIER(MPI_COMM_WORLD,ierror)
 step=0
 call gdr_step()
 call results()

@@ -10,7 +10,6 @@ module init
     integer :: side, i, j, k, count, size_seed
     real(8) :: dx, U1, U2, U3, U4
     integer, allocatable :: seed_array(:)
-    if (workerid==master) then
     time = 0.d0
     pi   = acos(-1.d0)
     gdr  = 0.d0 
@@ -18,13 +17,13 @@ module init
 ! Initializing random numbers
     call random_seed(size=size_seed)
     allocate(seed_array(size_seed))
-    seed_array(:) = seed
+    seed_array(:) = seed*(workerid+1)
     call random_seed(put=seed_array)
 
 ! mesuring the number of simple cubic cells per side
     side = int(dble(Npart)**(1.d0/3.d0))+1
     dx=L/dble(side)
-
+if (workerid==master) then
     count= 0
     do i = 1, side
       do j = 1, side
@@ -45,7 +44,6 @@ module init
         end do
       end do
     end do
-
 ! making general velocity = zero
     vel(:,1) = vel(:,1) - sum(vel(:,1))/dble(Npart)
     vel(:,2) = vel(:,2) - sum(vel(:,2))/dble(Npart)
@@ -53,12 +51,11 @@ module init
 
 ! center system at 0.0
     pos = pos - L/2.d0
-  endif
+endif
 ! compute initial forces
-  call ForcesLJ()
   call MPI_BCAST(pos, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
+  call ForcesLJ()
   call MPI_BCAST(vel, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
-  !!call MPI_BCAST(forces, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
   end subroutine
 
 end module

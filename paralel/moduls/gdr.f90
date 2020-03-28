@@ -8,7 +8,7 @@ contains
     integer :: i, j, indx
     real(8) :: r, dr, dxyz(3)
 
-    if (workerid==master) then 
+    if (workerid==master) then
     dr=(L/2.d0)/dble(Ngdr) ! size of gdr bin
 
     do i=1,Npart-1 ! loop over all pairs
@@ -51,8 +51,6 @@ contains
     end do
     close(un_gdr)
     endif
-    print*,'Workerid / first-last particle', workerid,'/', first_part,'-',last_part
-print*,'Workerid / first-last pair', workerid,'/', first_pair,'-',last_pair
   end subroutine
 
 end module gdr_funcs

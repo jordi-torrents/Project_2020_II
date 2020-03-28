@@ -8,25 +8,33 @@ module integration
 contains
 
 subroutine vverlet() ! velocity verlet algorithm
-  if (workerid==master) then
-  pos=pos+vel*dt +0.5d0*forces*dt*dt
+  
+  integer :: i
+   
+  do i=first_part, last_part
+     pos(i,:)=pos(i,:)+vel(i,:)*dt +0.5d0*forces(i,:)*dt*dt
+     vel(i,:)=vel(i,:)+forces(i,:)*0.5d0*dt
+  enddo
+  
   call pbc_pos()
-  vel=vel+forces*0.5d0*dt
-  endif
-  call ForcesLJ()
-  if (workerid==master) then
-  vel=vel+forces*0.5d0*dt
-  endif
+
+  do i=1,3
+  call MPI_GATHERV(pos(first_part:last_part,i),(last_part-first_part+1),MPI_DOUBLE_PRECISION, &
+                   pos(:,i),sizes_part,displs_part,MPI_DOUBLE_PRECISION, master,MPI_COMM_WORLD,ierror)
+  end do
+
   call MPI_BCAST(pos, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
-  call MPI_BCAST(vel, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
+  call ForcesLJ()
+  do i=first_part, last_part
+    vel(i,:)=vel(i,:)+forces(i,:)*0.5d0*dt
+  enddo
 end subroutine vverlet
 
 subroutine andersen_termo() ! andersen thermostat
   integer :: i
   real(8) :: U0, U1, U2, U3, U4
-  if (workerid==master) then
 
-  do i=1,Npart
+  do i=first_part,last_part
     call random_number(U0)
     if (U0<nu) then
       call random_number(U1)
@@ -38,8 +46,6 @@ subroutine andersen_termo() ! andersen thermostat
       vel(i,3)=dsqrt(-2.d0*temp*dlog(U3))*dcos(2.d0*pi*U4)
     end if
   end do
-  endif
-  call MPI_BCAST(vel, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
 end subroutine
 
 end module integration

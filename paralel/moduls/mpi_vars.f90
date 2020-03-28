@@ -88,8 +88,6 @@ if (workerid==master) then
    end do
 end if
 
-print*,'Workerid / first-last particle', workerid,'/', first_part,'-',last_part
-print*,'Workerid / first-last pair', workerid,'/', first_pair,'-',last_pair
 end subroutine init_mpi
 
 end module mpi_vars

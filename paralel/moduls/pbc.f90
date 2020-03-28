@@ -10,12 +10,10 @@ function pbc_dist(x)
 end function pbc_dist
 
 subroutine pbc_pos()
-  integer :: i, j
+  integer :: i
 
-  do i=1,Npart
-    do j=1,3
-      pos(i,j) = pos(i,j) - int(2.d0*pos(i,j)/L)*L
-    end do
+  do i=first_part, last_part
+      pos(i,:) = pos(i,:) - int(2.d0*pos(i,:)/L)*L
   end do
 
 end subroutine pbc_pos

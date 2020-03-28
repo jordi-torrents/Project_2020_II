@@ -2,7 +2,7 @@ COMP=mpif90
 OPT=-O3
 #FLAGS=-Wall  -fbounds-check
 INP=input_file.dat
-FLAGS=-g
+FLAGS=-g 
 #FLAGS=-Wall
 
 
@@ -54,20 +54,16 @@ clean:
 	@echo Borrando archivos *.o *.mod
 	@rm *.o
 	@rm *.mod
-	@cd moduls
-	@rm *.o
-	@rm *.mod
+	@rm moduls/*.o
 
 ## cleanAll : rm  *.o *.mod *.x
 .PHONY: cleanAll
 cleanAll:
-	@echo Borrando archivos *.o *.mod *.x
-	@rm *.x
+	@echo Borrando archivos *.o *.mod *.exe
+	@rm *.exe
 	@rm *.o
 	@rm *.mod
-	@cd moduls
-	@rm *.o
-	@rm *.mod
+	@rm moduls/*.o
 
 ## help : ayuda
 .PHONY: help
