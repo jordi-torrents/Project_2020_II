@@ -22,7 +22,7 @@ module stadistics
   subroutine statistics()
     real(8):: Tav, Tstd, kinav, kinstd, potav, potstd, etotav, etotstd, pressav, pressstd
 
-    open(unit=un_stats,file='stats.log')
+    open(unit=un_stats,file='output/stats.log')
     write(unit=un_stats, fmt=*) '# 		Temp (K)      	Kin (kJ/mol)  '&
     &'  Potential (kJ/mol)       E_tot (kJ/mol)      Pressure (Pa)'
 

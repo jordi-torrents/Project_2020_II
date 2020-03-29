@@ -7,9 +7,9 @@ INP=input_file.dat
 
 
 
-## SimulacioEIA.exe  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.exe :  moduls/def_variables.o moduls/Forces_LJ.o moduls/pbc.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o
-	$(COMP) $(OPT) $(FLAGS)  moduls/def_variables.o moduls/pbc.o moduls/Forces_LJ.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o -o SimulacioEIA.exe
+## dynamics_seq.exe  Programa calculo Modulo y Distancia de dos vectores
+dynamics_seq.exe :  moduls/def_variables.o moduls/Forces_LJ.o moduls/pbc.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o
+	$(COMP) $(OPT) $(FLAGS)  moduls/def_variables.o moduls/pbc.o moduls/Forces_LJ.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o -o dynamics_seq.exe
 
 moduls/def_variables.o : moduls/def_variables.f90
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
@@ -42,22 +42,24 @@ main.o : main.f90 moduls/def_variables.o moduls/pbc.o moduls/Forces_LJ.o moduls/
 ## run : Run the program vectors.x
 .PHONY: run
 run:
-	./SimulacioEIA.exe $(INP)
+	./dynamics_seq.exe $(INP)
 
 ## clean : rm  *.o *.mod
 .PHONY: clean
 clean:
 	@echo Borrando archivos *.o *.mod
-	@rm -fr *.o
-	@rm -fr *.mod
+	@rm *.o
+	@rm *.mod
+	@rm moduls/*.o
 
 ## cleanAll : rm  *.o *.mod *.x
 .PHONY: cleanAll
 cleanAll:
-	@echo Borrando archivos *.o *.mod *.x
-	@rm -fr *.o
-	@rm -fr *.mod
-	@rm -fr *.x
+	@echo Borrando archivos *.o *.mod *.exe
+	@rm *.o
+	@rm *.mod
+	@rm moduls/*.o
+	@rm *.exe
 
 ## help : ayuda
 .PHONY: help

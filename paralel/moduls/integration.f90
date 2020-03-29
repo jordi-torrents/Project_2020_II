@@ -19,11 +19,9 @@ subroutine vverlet() ! velocity verlet algorithm
   call pbc_pos()
 
   do i=1,3
-  call MPI_GATHERV(pos(first_part:last_part,i),(last_part-first_part+1),MPI_DOUBLE_PRECISION, &
-                   pos(:,i),sizes_part,displs_part,MPI_DOUBLE_PRECISION, master,MPI_COMM_WORLD,ierror)
+  call MPI_ALLGATHERV(pos(first_part:last_part,i),(last_part-first_part+1),MPI_DOUBLE_PRECISION, &
+                   pos(:,i),sizes_part,displs_part,MPI_DOUBLE_PRECISION,MPI_COMM_WORLD,ierror)
   end do
-
-  call MPI_BCAST(pos, (Npart*3), MPI_DOUBLE_PRECISION, master, MPI_COMM_WORLD, IERROR)
   call ForcesLJ()
   do i=first_part, last_part
     vel(i,:)=vel(i,:)+forces(i,:)*0.5d0*dt

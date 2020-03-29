@@ -8,9 +8,9 @@ FLAGS=-g
 
 
 
-## SimulacioEIA.exe  Programa calculo Modulo y Distancia de dos vectores
-SimulacioEIA.exe :  moduls/def_variables.o moduls/mpi_vars.o moduls/Forces_LJ.o moduls/pbc.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o
-	$(COMP) $(OPT) $(FLAGS)  moduls/def_variables.o moduls/mpi_vars.o moduls/pbc.o moduls/Forces_LJ.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o -o SimulacioEIA.exe
+## dynamics.exe  Programa calculo Modulo y Distancia de dos vectores
+dynamics.exe :  moduls/def_variables.o moduls/mpi_vars.o moduls/Forces_LJ.o moduls/pbc.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o
+	$(COMP) $(OPT) $(FLAGS)  moduls/def_variables.o moduls/mpi_vars.o moduls/pbc.o moduls/Forces_LJ.o moduls/init.o moduls/integration.o  moduls/read_input.o moduls/stadistics.o moduls/gdr.o main.o -o dynamics.exe
 
 moduls/mpi_vars.o : moduls/mpi_vars.f90
 	$(COMP) $(OPT) $(FLAGS) -c  $< -o $@
@@ -46,7 +46,7 @@ main.o : main.f90 moduls/def_variables.o moduls/mpi_vars.o moduls/pbc.o moduls/F
 ## run : Run the program vectors.x
 .PHONY: run
 run:
-	mpirun -np 2 SimulacioEIA.exe $(INP)
+	mpirun -np 2 dynamics.exe $(INP)
 
 ## clean : rm  *.o *.mod
 .PHONY: clean

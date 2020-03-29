@@ -34,21 +34,19 @@ else
   last_part = first_part + chunksize -1
 endif
 
-if (workerid==master) then
    allocate(sizes_part(numproc))
    allocate(displs_part(numproc))
 
-  counter=0
-  do i=1,numproc
-     displs_part(i) = counter
-     if ((i-1)<remainder) then
-       sizes_part(i)= chunksize+1
-     else
-       sizes_part(i)= chunksize
-     end if
-     counter = counter + sizes_part(i)
-   end do
-endif
+counter=0
+do i=1,numproc
+   displs_part(i) = counter
+   if ((i-1)<remainder) then
+     sizes_part(i)= chunksize+1
+   else
+     sizes_part(i)= chunksize
+   end if
+   counter = counter + sizes_part(i)
+ end do
 
 !! Definition of particles pair
 
@@ -72,21 +70,19 @@ do i=1,Npart
        pair_indx(counter,:) = (/i, j/)
    end do
 end do
-if (workerid==master) then
-   allocate(sizes_pair(numproc))
-   allocate(displs_pair(numproc))
+allocate(sizes_pair(numproc))
+allocate(displs_pair(numproc))
 
-   counter=0
-   do i=1,numproc
-     displs_pair(i) = counter
-     if ((i-1)<remainder) then
-       sizes_pair(i)= chunksize+1
-     else
-       sizes_pair(i)= chunksize
-     end if
-     counter = counter + sizes_pair(i)
-   end do
-end if
+counter=0
+do i=1,numproc
+  displs_pair(i) = counter
+  if ((i-1)<remainder) then
+    sizes_pair(i)= chunksize+1
+  else
+    sizes_pair(i)= chunksize
+  end if
+  counter = counter + sizes_pair(i)
+end do
 
 end subroutine init_mpi
 

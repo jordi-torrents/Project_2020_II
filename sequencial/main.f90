@@ -14,7 +14,7 @@ call read_parameters()
 call allocate_arrays(Nsteps, Nprint, Npart)
 call initialize()
 
-open(unit=un_mag,file='results.log')
+open(unit=un_mag,file='output/results.log')
 write(unit=un_mag, fmt=*) '# Time         Temp      Kin     Potencial       E_tot        Pressure'
 
 

@@ -1,10 +1,10 @@
-256	Nparticules
+2048	Nparticules
 0.9	Density Particules / sigma**3
 10000	Nsteps
 10000	Nterm
 300	Temperature Kelvins
 0.0003	TimeStep
-100	N Print
+1000	N Print
 2.628	sigmaLJ Angstroms
 5.465	epsLJ/kB Kelvins
 4.0	Mass

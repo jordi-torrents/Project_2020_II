@@ -41,7 +41,7 @@ contains
     gdr = gdr*(2.d0/(volume*dens*Npart*(1+int(Nsteps/Nprint))))
 
 ! writing gdr
-    open(un_gdr, file='gdr.log')
+    open(un_gdr, file='output/gdr.log')
     do i=1,Ngdr
       write(un_gdr, *) sigmaLJ*(dble(i)-0.5d0)*dr , gdr(i)
     end do
