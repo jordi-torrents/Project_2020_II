@@ -20,8 +20,9 @@ call initialize()
 
 if (workerid==master) then
 open(unit=un_mag,file='output/results.log')
-write(un_mag,'(6a16)' ) '#Time','Temp','Kin','Potencial','E_tot','Pressure'
+write(un_mag,'(6a16)' ) '#Time (ps)','Temp (K)','E_kin (kJ/mol)','E_pot (kJ/mol)','E_tot (kJ/mol)','Pressure (Pa)'
 endif
+
 do step=1,Nterm
   call vverlet()
   call andersen_termo()
@@ -30,9 +31,9 @@ step=0
 call gdr_step()
 call results()
 
-do step =1,int(Nsteps/Nprint)
-  time = time + dt
-  do step_print=1, Nprint
+do step = 1, Nsteps/Nprint
+  do step_print = 1, Nprint
+    time = time + dt
     call vverlet()
     call andersen_termo()
   enddo

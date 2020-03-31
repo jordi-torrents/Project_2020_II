@@ -1,14 +1,14 @@
-4096	Nparticules
-0.9	Density Particules / sigma**3
-40000	Nsteps
-10000	Nterm
-300	Temperature Kelvins
-0.0003	TimeStep
-50	N Print
-2.628	sigmaLJ Angstroms
-5.465	epsLJ/kB Kelvins
-4.0	Mass
-10	seed
-300 Number of gdr beads
-2.5 cutoff
-0.08 nu (/dt)
+4096	 Nparticules
+0.9	   Density (reduced units)
+40000	 Nsteps
+10000	 Nterm
+300	   Temperature (Kelvin)
+0.0003 TimeStep (reduced units)
+50	   N Print
+2.628	 sigmaLJ (Angstroms)
+5.465	 epsLJ (Kelvin)
+4.0    mass (g/mol)
+10	   seed
+300    Number of gdr beads
+2.5    cutoff (reduced units)
+0.08   nu (/dt)

@@ -5,7 +5,7 @@ module read_input
   contains
 
   subroutine open_input()
-    character(24)    ::      fName
+    character(24) :: fName
 
     call get_command_argument(1,fName, status=fStat)
     if (fStat /= 0) then
@@ -17,30 +17,30 @@ module read_input
   subroutine read_parameters()
 
     read(un_input,*) Npart
-    read(un_input,*) dens
+    read(un_input,*) dens   ! r.u.
     read(un_input,*) Nsteps
     read(un_input,*) Nterm
-    read(un_input,*) temp
-    read(un_input,*) dt
+    read(un_input,*) temp   ! K
+    read(un_input,*) dt     ! r.u.
     read(un_input,*) Nprint
-    read(un_input,*) sigmaLJ
-    read(un_input,*) epsLJ
-    read(un_input,*) mass
+    read(un_input,*) sigmaLJ! A
+    read(un_input,*) epsLJ  ! K
+    read(un_input,*) mass   ! g/mol
     read(un_input,*) seed
     read(un_input,*) Ngdr
-    read(un_input,*) cutoff
+    read(un_input,*) cutoff ! r.u.
     read(un_input,*) nu
-    cutoff2 = cutoff**2
-    e_cut =  4.d0/cutoff2**6 - 4.d0/cutoff2**3
-    !conversion factors are computed
-    temperaturef=epsLJ
-    temp=temp/temperaturef
-    epsLJ=epsLJ*kB*NA
-    timef=sigmaLJ*1d2*sqrt(mass/(epsLJ*1000.d0))
-    pressuref=epsLJ*1d30/(NA*sigmaLJ**3.d0)
-    L = (dble(Npart)/dens)**(1.d0/3.d0)
     close(un_input)
-    
+    cutoff2 = cutoff**2
+    E_cut   = 4.d0/cutoff2**6 - 4.d0/cutoff2**3
+    L = (dble(Npart)/dens)**(1.d0/3.d0)
+    !conversion factors are computed
+    Temp_fact   = epsLJ  ! r.u. => K
+    temp        = temp/epsLJ !  K => r.u.
+    epsLJ       = epsLJ*kB*NA*1.d-3 ! K => kJ/mol
+    time_fact   = (1.d2)*sigmaLJ*sqrt((mass*1.d-3)/(epsLJ-1.d3)) ! r.u. => ps
+    Press_fact  = epsLJ/(NA*(sigmaLJ*1.d-10)**3) ! r.u. => Pa
+
   end subroutine read_parameters
 
 end module read_input
