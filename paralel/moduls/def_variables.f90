@@ -9,9 +9,10 @@ use mpi_vars
   real(8)  ::   dens, temp, dt, sigmaLJ, epsLJ, mass, L
   real(8)  ::   cutoff, dx, nu,pi, cutoff2, na=6.0221409d23, kb=1.3806485279d-23
   real(8)  ::   temperaturef, pressuref,timef
-  real(8)  ::   e_pot, pressure, time
+  real(8)  ::   e_pot, e_cut, pressure, time
   real(8), allocatable,dimension(:,:)     ::      pos, vel, forces
   real(8), allocatable,dimension(:)       ::      E_tot, kin, pot, press , temp_inst, gdr
+  integer,allocatable,dimension(:)        ::      gdr_int
 
   contains
 
@@ -26,6 +27,7 @@ use mpi_vars
     allocate(    press(1+int(Nsteps/Nprint)))
     allocate(temp_inst(1+int(Nsteps/Nprint)))
     allocate(      gdr(Ngdr))
+    allocate(      gdr_int(Ngdr))
   end subroutine allocate_arrays
 
 end module def_variables

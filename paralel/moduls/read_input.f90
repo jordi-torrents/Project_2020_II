@@ -31,6 +31,7 @@ module read_input
     read(un_input,*) cutoff
     read(un_input,*) nu
     cutoff2 = cutoff**2
+    e_cut =  4.d0/cutoff2**6 - 4.d0/cutoff2**3
     !conversion factors are computed
     temperaturef=epsLJ
     temp=temp/temperaturef

@@ -8,11 +8,10 @@ contains
     integer :: i, j, indx
     real(8) :: r, dr, dxyz(3)
 
-    if (workerid==master) then
-    dr=(L/2.d0)/dble(Ngdr) ! size of gdr bin
+    dr=(4.d0)/dble(Ngdr) ! size of gdr bin refered to reduced units
 
-    do i=1,Npart-1 ! loop over all pairs
-      do j=i+1,Npart
+    do i=first_part,last_part
+      do j=1,Npart ! loop over all pairs
         dxyz = (/pbc_dist(pos(i,1)-pos(j,1)),&
                 &pbc_dist(pos(i,2)-pos(j,2)),&
                 &pbc_dist(pos(i,3)-pos(j,3))/)
@@ -20,11 +19,10 @@ contains
         indx = int(r/dr) + 1
       ! if distance is lower than L/2, put it in the histogram
         if (indx<Ngdr+1) then
-          gdr(indx) = gdr(indx) + 1.d0
+          gdr_int(indx) = gdr_int(indx) + 1
         end if
       end do
     end do
-    endif
 
   end subroutine
 
@@ -32,9 +30,11 @@ contains
     real(8) :: dr, volume(Ngdr)
     integer :: i
     
-    if (workerid==master) then 
-    dr=(L/2.d0)/dble(Ngdr)
-
+    dr=(4.d0)/dble(Ngdr) ! size of gdr bin refered to reduced units
+    call MPI_REDUCE(gdr_int,gdr_int,Ngdr,MPI_INTEGER,MPI_SUM,master,MPI_COMM_WORLD,ierror)
+    if (workerid==master) then
+    gdr_int(1)=0
+    gdr(:) = dble(gdr_int(:)) 
 ! computing volum of every bin
     do i=1,Ngdr
       volume(i)= (4.d0/3.d0)*pi*(  dble(i)*dr)**3-&
@@ -42,7 +42,7 @@ contains
     enddo
 
 ! normalizing gdr
-    gdr = gdr*(2.d0/(volume*dens*Npart*(1+int(Nsteps/Nprint))))
+    gdr = gdr/(volume*dens*Npart*(1+int(Nsteps/Nprint)))
 
 ! writing gdr
     open(un_gdr, file='output/gdr.log')

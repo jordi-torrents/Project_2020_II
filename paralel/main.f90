@@ -20,7 +20,7 @@ call initialize()
 
 if (workerid==master) then
 open(unit=un_mag,file='output/results.log')
-write(unit=un_mag, fmt=*) '# Time         Temp      Kin     Potencial       E_tot        Pressure'
+write(un_mag,'(6a16)' ) '#Time','Temp','Kin','Potencial','E_tot','Pressure'
 endif
 do step=1,Nterm
   call vverlet()

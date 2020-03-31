@@ -9,15 +9,17 @@ module stadistics
     real(8) ::      kinetic
 
     call pressure_e_pot()
+    kinetic      =     0.5d0*sum(vel(first_part:last_part,:)**2)/dble(Npart)
+    call MPI_REDUCE(kinetic,kinetic,1,MPI_DOUBLE_PRECISION,MPI_SUM,master,MPI_COMM_WORLD,ierror)
+
     if (workerid==master) then
-    kinetic      =     0.5d0*sum(vel**2)/dble(Npart)
     temp_inst(step+1)= kinetic*2.0d0/(3.0d0)
     kin(step+1)  =     kinetic*0.001
     pot(step+1)  =     e_pot/dble(Npart)*0.001
     E_tot(step+1)=     kin(step+1)+pot(step+1)
     press(step+1)=     pressure
 
-    write(unit=un_mag, fmt=*) time*timef,temp_inst(step+1)*temperaturef,kin(step+1)*epsLJ, pot(step+1)*epsLJ,&
+    write(un_mag,'(6e16.8)') time*timef,temp_inst(step+1)*temperaturef,kin(step+1)*epsLJ, pot(step+1)*epsLJ,&
     E_tot(step+1)*epsLJ, press(step+1)*pressuref
     endif
   end subroutine results
@@ -26,17 +28,15 @@ module stadistics
     real(8):: Tav, Tstd, kinav, kinstd, potav, potstd, etotav, etotstd, pressav, pressstd
     if (workerid==master) then
     open(unit=un_stats,file='output/stats.log')
-    write(unit=un_stats, fmt=*) '# 		Temp (K)      	Kin (kJ/mol)  '&
-    &'  Potential (kJ/mol)       E_tot (kJ/mol)      Pressure (Pa)'
+    write(un_stats,'(a5,5a17)' ) '','#Temp(K)','Kin(kJ/mol)','Potential(kJ/mol)','E_tot(kJ/mol)','Pressure(Pa)'
 
     Tav    = mean(temp_inst); Tstd    = std(temp_inst)
     kinav  = mean(kin)      ; kinstd  = std(kin)
     potav  = mean(pot)      ; potstd  = std(pot)
     etotav = mean(E_tot)    ; etotstd = std(E_tot)
     pressav= mean(press)    ; pressstd= std(press)
-    write(unit=un_stats, fmt=*) "Mean",Tav*temperaturef, kinav*epsLJ, potav*epsLJ, etotav*epsLJ, pressav*pressuref
-    write(unit=un_stats, fmt=*) "Std", Tstd*temperaturef,  kinstd*epsLJ,&
-    potstd*epsLJ,etotstd*epsLJ,  pressstd*pressuref
+    write(un_stats,'(a5,5e17.8)' ) "Mean",Tav*temperaturef, kinav*epsLJ, potav*epsLJ, etotav*epsLJ, pressav*pressuref
+    write(un_stats,'(a5,5e17.8)' ) "Std", Tstd*temperaturef,  kinstd*epsLJ,potstd*epsLJ,etotstd*epsLJ,  pressstd*pressuref
     close(un_stats)
     endif
   end subroutine statistics

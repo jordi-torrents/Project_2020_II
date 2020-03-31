@@ -12,7 +12,7 @@ module init
     integer, allocatable :: seed_array(:)
     time = 0.d0
     pi   = acos(-1.d0)
-    gdr  = 0.d0 
+    gdr_int  = 0
 
 ! Initializing random numbers
     call random_seed(size=size_seed)
