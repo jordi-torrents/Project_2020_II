@@ -7,7 +7,7 @@ module def_variables
   integer  ::   Npart, step_print, step, Nsteps, Nprint, Ngdr, Nterm, seed
   real(8)  ::   dens, temp, dt, sigmaLJ, epsLJ, mass, L
   real(8)  ::   cutoff, dx, nu,pi, cutoff2, na=6.0221409d23, kb=1.3806485279d-23
-  real(8)  ::   Temp_fact, Press_fact,time_fact
+  real(8)  ::   Temp_fact, Press_fact, time_fact
   real(8)  ::   E_kin, E_pot, E_cut, Press, time
   real(8), allocatable, dimension(:,:) :: pos, vel, forces
   real(8), allocatable, dimension(:)   :: E_tot_array, E_kin_array, E_pot_array, Press_array, Temp_array, gdr

@@ -6,6 +6,7 @@ r, gdr = pd.read_csv('output/gdr.log',header=None, sep='\s+').T.values
 time,temp,e_kin,e_pot,e_tot,press = pd.read_csv('output/results.log',header=0, sep='\s+').T.values
 
 fig, ax = plt.subplots(1, dpi=200)
+ax.vlines(2.628,0,15,'gray',':')
 ax.hlines(1,0,15,'gray',':')
 ax.plot(r,gdr, lw=1)
 ax.set(xlim=(r[0],r[-1]), ylim=(0,1.55), xlabel='r {$\AA$}', ylabel='Radial distribution function')
@@ -30,7 +31,7 @@ plt.tight_layout()
 plt.savefig('output/temperature.png')
 
 fig, ax = plt.subplots(1, dpi=200)
-ax.plot(time,press*1.e-6, lw=1)
+ax.plot(time,press, lw=1)
 ax.set(xlim=(time[0],time[-1]), xlabel='time {ps}', ylabel='MPa')
 plt.tight_layout()
 plt.savefig('output/pressure.png')

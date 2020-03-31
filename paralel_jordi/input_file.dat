@@ -1,0 +1,14 @@
+1024	Nparticules
+0.3	Density  (r.u.)
+100000	Nsteps
+10000	Nterm
+200	Temperature (Kelvin)
+0.0003	TimeStep (r.u.)
+50	N Print
+2.628	sigmaLJ (Angstroms)
+5.465	epsLJ/kB (Kelvin)
+4.0	Mass (g/mol)
+10	seed
+300     Number of gdr beads
+2.5     cutoff (r.u.)
+0.08    nu (/dt)

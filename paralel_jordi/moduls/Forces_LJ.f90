@@ -47,7 +47,7 @@ module Forces_LJ
 
         if (r2 < cutoff2) then
           suma  = suma  + (48.d0/r2**6 - 24.d0/r2**3) ! sum to calculate pressure
-          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3 - E_cut! L-J potential
+          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3! - E_cut! L-J potential
         end if
       end do
 
@@ -59,15 +59,15 @@ module Forces_LJ
 
         if (r2 < cutoff2) then
           suma  = suma  + (48.d0/r2**6 - 24.d0/r2**3) ! sum to calculate pressure
-          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3 - E_cut! L-J potential
+          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3! - E_cut! L-J potential
         end if
       end do
     end do
     call MPI_REDUCE( suma, suma,1,MPI_DOUBLE_PRECISION,MPI_SUM,master,MPI_COMM_WORLD,ierror)
     call MPI_REDUCE(E_pot,E_pot,1,MPI_DOUBLE_PRECISION,MPI_SUM,master,MPI_COMM_WORLD,ierror)
     if (workerid==master) then
-      suma =  suma/2.d0
-      E_pot= E_pot/(2.d0*dble(Npart))
+      suma  =  suma/2.d0
+      E_pot = E_pot/(2.d0*dble(Npart))
       Press = dens*temp + suma/(3.d0*L**3)
     endif
   end subroutine Press_and_E_pot

@@ -20,7 +20,7 @@ call initialize()
 
 if (workerid==master) then
 open(unit=un_mag,file='output/results.log')
-write(un_mag,'(6a16)' ) '#Time (ps)','Temp (K)','E_kin (kJ/mol)','E_pot (kJ/mol)','E_tot (kJ/mol)','Pressure (Pa)'
+write(un_mag,'(6a16)' ) '#Time_(ps)','Temp_(K)','E_kin_(kJ/mol)','E_pot_(kJ/mol)','E_tot_(kJ/mol)','Pressure_(MPa)'
 endif
 
 do step=1,Nterm

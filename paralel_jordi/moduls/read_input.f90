@@ -38,8 +38,8 @@ module read_input
     Temp_fact   = epsLJ  ! r.u. => K
     temp        = temp/epsLJ !  K => r.u.
     epsLJ       = epsLJ*kB*NA*1.d-3 ! K => kJ/mol
-    time_fact   = (1.d2)*sigmaLJ*sqrt((mass*1.d-3)/(epsLJ-1.d3)) ! r.u. => ps
-    Press_fact  = epsLJ/(NA*(sigmaLJ*1.d-10)**3) ! r.u. => Pa
+    time_fact   = (1.d2)*sigmaLJ*sqrt((mass*1.d-3)/(epsLJ*1.d3)) ! r.u. => ps
+    Press_fact  = (1.d-3)*epsLJ/(NA*(sigmaLJ*1.d-10)**3) ! r.u. => MPa
 
   end subroutine read_parameters
 
