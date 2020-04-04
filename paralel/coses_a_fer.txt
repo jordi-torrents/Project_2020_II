@@ -1,0 +1,6 @@
+Recollir temps sequencials per ficar-los a la figura "temps_MPI.png"
+Recollir temps del paralel old2 per poder comparar els algoritmes de forces
+borrar els .sh que no serveixin
+fer una simulació llarga per obtenir bons resultats
+revisar makefile (plots, run -np, .tar)
+reviser readme

@@ -5,6 +5,7 @@ module stadistics
 
   contains
 
+! measures system properties and writes them in output file and arrays
   subroutine results()
 
     call Press_and_E_pot()
@@ -23,6 +24,7 @@ module stadistics
     endif
   end subroutine results
 
+! computes final average and statistical deviation of previous saved data on arrays
   subroutine statistics()
     if (workerid==master) then
     open(unit=un_stats,file='output/stats.log')
@@ -39,6 +41,7 @@ module stadistics
                                           std(E_tot_array)*epsLJ,&
                                           std(Press_array)*Press_fact
     close(un_stats)
+    close(un_mag)
     endif
   end subroutine statistics
 

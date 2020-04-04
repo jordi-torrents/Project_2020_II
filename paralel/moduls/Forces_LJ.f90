@@ -7,7 +7,12 @@ module Forces_LJ
   integer :: i, j, counter
 
   contains
+! forces computation
   subroutine ForcesLJ()
+! each worker will compute forces between his particles and all possible pairs
+! We compute two times every pair force in order to avoid using MPI communications and,
+! thus, increasing program performance
+! We also use a double DO loop to avoid auto-interaction
     forces(first_part:last_part,:) = 0.d0
     do i=first_part,last_part
        do j=1,i-1
@@ -30,12 +35,11 @@ module Forces_LJ
         endif
        end do
     end do
-
   end subroutine
 
+! computing system pressure and potential energy
   subroutine Press_and_E_pot()
     real(8) :: suma
-    ! calculates potential energy and pressure
     suma = 0.d0
     E_pot= 0.d0
     do i=first_part, last_part ! loop over pairs
@@ -47,7 +51,7 @@ module Forces_LJ
 
         if (r2 < cutoff2) then
           suma  = suma  + (48.d0/r2**6 - 24.d0/r2**3) ! sum to calculate pressure
-          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3! - E_cut! L-J potential
+          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3 - E_cut! L-J potential
         end if
       end do
 
@@ -59,12 +63,14 @@ module Forces_LJ
 
         if (r2 < cutoff2) then
           suma  = suma  + (48.d0/r2**6 - 24.d0/r2**3) ! sum to calculate pressure
-          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3! - E_cut! L-J potential
+          E_pot = E_pot +   4.d0/r2**6 -  4.d0/r2**3 - E_cut! L-J potential
         end if
       end do
     end do
+! collecting calculation from all workers
     call MPI_REDUCE( suma, suma,1,MPI_DOUBLE_PRECISION,MPI_SUM,master,MPI_COMM_WORLD,ierror)
     call MPI_REDUCE(E_pot,E_pot,1,MPI_DOUBLE_PRECISION,MPI_SUM,master,MPI_COMM_WORLD,ierror)
+! substracting pair double calculation
     if (workerid==master) then
       suma  =  suma/2.d0
       E_pot = E_pot/(2.d0*dble(Npart))

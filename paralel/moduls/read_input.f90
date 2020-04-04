@@ -2,6 +2,8 @@ module read_input
   use def_variables
   use mpi_vars
 
+! Reads input file data and computes useful constants
+
   contains
 
   subroutine open_input()
@@ -31,16 +33,18 @@ module read_input
     read(un_input,*) cutoff ! r.u.
     read(un_input,*) nu
     close(un_input)
+
+! compute useful constants
+
     cutoff2 = cutoff**2
     E_cut   = 4.d0/cutoff2**6 - 4.d0/cutoff2**3
     L = (dble(Npart)/dens)**(1.d0/3.d0)
-    !conversion factors are computed
+! compute conversion factors
     Temp_fact   = epsLJ  ! r.u. => K
     temp        = temp/epsLJ !  K => r.u.
     epsLJ       = epsLJ*kB*NA*1.d-3 ! K => kJ/mol
     time_fact   = (1.d2)*sigmaLJ*sqrt((mass*1.d-3)/(epsLJ*1.d3)) ! r.u. => ps
     Press_fact  = (1.d-3)*epsLJ/(NA*(sigmaLJ*1.d-10)**3) ! r.u. => MPa
-
   end subroutine read_parameters
 
 end module read_input
