@@ -8,8 +8,8 @@ nproc, time3 = pd.read_csv('ts_test/speedup3k.log',header=None, sep='\s+').T.val
 nproc, time4 = pd.read_csv('ts_test/speedup4k.log',header=None, sep='\s+').T.values
 time_seq1 =  493.2708*np.ones_like(nproc)
 time_seq2 = 1891.4422*np.ones_like(nproc)
-time_seq3 = 1*np.ones_like(nproc)
-time_seq4 = 1*np.ones_like(nproc)
+time_seq3 = 4206.4909*np.ones_like(nproc)
+time_seq4 = 7405.5548*np.ones_like(nproc)
 
 speedup1=time1[0]/time1
 speedup2=time2[0]/time2
@@ -17,7 +17,7 @@ speedup3=time3[0]/time3
 speedup4=time4[0]/time4
 
 fig, ax = plt.subplots()
-ax.vlines(2,10,15000,'gray',':')
+ax.vlines(2,10,15000,'gray',':', label='Sequential times')
 ax.plot(nproc, time1,'C0-', label='1000 Particles')
 ax.plot(nproc, time_seq1,'C0:')
 ax.plot(nproc, time2,'C1-', label='2000 Particles')
@@ -28,7 +28,7 @@ ax.plot(nproc, time4,'C3-', label='4000 Particles')
 ax.plot(nproc, time_seq4,'C3:')
 ax.set(xlim=(nproc[0],nproc[-1]), ylim=(10,15000), xlabel='N workers', ylabel='Time (s)',xscale='log', yscale='log')
 plt.xticks((1,2,10,100,400),('1','2','10','100','400'))
-plt.legend()
+plt.legend(loc=1)
 plt.tight_layout()
 plt.savefig('temps_MPI.png', dpi=300)
 # plt.show()
