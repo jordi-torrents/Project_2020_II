@@ -4,4 +4,3 @@ borrar els .sh que no serveixin
 fer una simulació llarga per obtenir bons resultats
 revisar makefile (plots, run -np, .tar)
 reviser readme
-time coutners real(8) => real(4)

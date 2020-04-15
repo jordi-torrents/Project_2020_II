@@ -5,7 +5,7 @@ module def_variables
 
   implicit none
 ! external program time counters
-  real(8)  ::   start, finish
+  real(4)  ::   start, finish
 ! unit files
   integer  ::   fStat, un_input=101, un_gdr=102, un_mag=103, un_stats=104
 ! constants (pi, Avogadro, Boltzmann)
@@ -29,6 +29,7 @@ module def_variables
   contains
 
   subroutine allocate_arrays(Nsteps, Nprint, Npart)
+    integer :: Nsteps, Nprint, Npart
     allocate(forces(Npart,3))
     allocate(   pos(Npart,3))
     allocate(   vel(Npart,3))

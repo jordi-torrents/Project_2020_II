@@ -1,10 +1,10 @@
-2000	Nparticules
+10000	Nparticules
 0.9	Density  (r.u.)
-20000	Nsteps
-20000	Nterm
+100000	Nsteps
+30000	Nterm
 300	Temperature (Kelvin)
 0.0005	TimeStep (r.u.)
-40	N Print
+50	N Print
 2.628	sigmaLJ (Angstroms)
 5.465	epsLJ/kB (Kelvin)
 4.0	Mass (g/mol)

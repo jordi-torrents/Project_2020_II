@@ -44,3 +44,32 @@ plt.legend()
 plt.xticks((1,10,100,400),('1','10','100','400'))
 plt.tight_layout()
 plt.savefig('speedup_MPI.png', dpi=300)
+
+
+
+fig, axs = plt.subplots(2,2)
+
+nproc_old, time_old1 = pd.read_csv('ts_test/algoritme_antic/speedup1k.log',header=None, sep='\s+').T.values
+nproc_old, time_old2 = pd.read_csv('ts_test/algoritme_antic/speedup2k.log',header=None, sep='\s+').T.values
+nproc_old, time_old3 = pd.read_csv('ts_test/algoritme_antic/speedup3k.log',header=None, sep='\s+').T.values
+nproc_old, time_old4 = pd.read_csv('ts_test/algoritme_antic/speedup4k.log',header=None, sep='\s+').T.values
+
+axs[0,0].set(title='1000 Particles')
+axs[0,0].plot(nproc,time1, label='New Algorithm')
+axs[0,0].plot(nproc_old,time_old1, label='Old Algorithm')
+axs[0,0].legend()
+axs[0,1].set(title='2000 Particles')
+axs[0,1].plot(nproc,time2)
+axs[0,1].plot(nproc_old,time_old2)
+axs[1,0].set(title='3000 Particles')
+axs[1,0].plot(nproc,time3)
+axs[1,0].plot(nproc_old,time_old3)
+axs[1,1].set(title='4000 Particles')
+axs[1,1].plot(nproc,time4)
+axs[1,1].plot(nproc_old,time_old4)
+
+for ax in axs.flatten():
+    ax.set(xlabel='N workers', ylabel='time (s)', xlim=(1,100), ylim=(10,20000), xscale='log', yscale='log')
+
+plt.tight_layout()
+plt.savefig('comparacio.png')

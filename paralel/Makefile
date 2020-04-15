@@ -46,7 +46,7 @@ main.o : main.f90 moduls/def_variables.o moduls/mpi_vars.o moduls/pbc.o moduls/F
 ## run : Run the program vectors.x
 .PHONY: run
 run:
-	mpirun -np 2 dynamics.exe $(INP)
+	mpirun -np $(NP) dynamics.exe $(INP)
 
 ## clean : rm  *.o *.mod
 .PHONY: clean
@@ -88,4 +88,5 @@ tar.gz :
 .PHONY: plots
 plots:
 	@echo Generando gráficas
-	@gnuplot gnuplot_scripts/graphsim.gp
+	@module load PYTHON/3.7.4
+	@python3 plots.py
